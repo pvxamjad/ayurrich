@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'ayur_rich.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': '310373',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PASSWORD': 'eUMEycollyPFZVPhnDsgwGIExLgzydvQ',
+        'HOST': 'autorack.proxy.rlwy.net',
+        'PORT': '59277',
     }
 }
 
