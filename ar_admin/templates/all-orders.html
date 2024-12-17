@@ -1,0 +1,103 @@
+{% extends 'admin_base.html' %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container pt-5 ps-sm-1">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item active display-5 ayurrich-bold-text fw-normal" aria-current="page">All Orders</li>
+
+                    </ol>
+                  </nav>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-end">
+            <div class="col-12 col-md-4 col-lg-3 py-md-1">
+                <form class="d-flex" method="GET" action="{% url 'all-orders' %}" role="search">
+                    <input class="form-control box-shadow-none search me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}">
+                    <button class="btn btn-primary-color rounded-pill" type="submit">Search</button>
+                </form>
+                
+             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 px-md-5">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            
+                            <tr>
+                              <th scope="col" class="py-4" >Order Id</th>
+                              <th scope="col" class="py-4" >Customer Name</th>
+                              <th scope="col" class="py-4">Shipping Status</th>
+                              <th scope="col" class="py-4">Orderd Date</th>
+
+                            </tr>
+                           
+                          </thead>
+                          <tbody >
+                            
+                            {% for order in orders %}
+                            <tr >
+                              <td scope="row">
+                                <a href="{% url 'all-orders/order-details' order.order_id %}" class="text-decoration-none text-dark fw-semibold">
+                                  {{ order.order_id }}
+                
+                {% if order.orderd_date == today and not order.is_shipped %}
+                    <span class="badge ms-4 text-bg-secondary">New</span>
+                {% endif %}
+                                 
+                                </a>
+                                
+                              </td>
+                              <td>
+                                <a href="{% url 'all-orders/order-details' order.order_id %}" class="text-decoration-none text-dark fw-semibold">
+                                    {{ order.shipping_info.full_name }}
+                                </a>
+                                
+                                
+                               </td>
+                              <td>
+                                <a href="{% url 'all-orders/order-details' order.order_id %}" class="text-decoration-none text-dark">
+                                    {% if order.is_shipped %}
+                                    <strong>Order Shipped</strong>
+                                    {% else %}
+                                    <strong>Order Not Shipped</strong>
+                                    {% endif %}
+                                </a>
+                               
+                            </td>
+                            <td>
+                                <a href="{% url 'all-orders/order-details' order.order_id %}" class="text-decoration-none text-dark fw-semibold">
+                                    {{ order.orderd_date }}
+                                </a>
+                                
+                                
+                               </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+<script>
+  // Redirect to the same page after 3 seconds
+  setTimeout(function() {
+            window.location.href = window.location.href; // Redirect to the current page
+        }, 10000);
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,223 @@
+body{
+    font-family: "Quicksand", sans-serif !important;
+}
+
+@media (max-width: 768px) { 
+    .product-img{
+        max-height: 250px !important;
+    }
+
+ }
+
+:root{
+    --primary-color : #B57EDC;
+    
+}
+
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    color: black !important;    
+    border: none !important;
+}
+
+.pagination .page-item.active .page-link:hover {
+    background-color: #9737db !important;
+    color: white;
+    border: none !important;
+}
+
+.pagination .page-item.active .page-link:focus {
+    outline: none;  
+}
+
+.nav-link.active{
+    color: var(--primary-color) !important;
+    font-weight: 1000 !important;
+    
+}
+.bg-ayurrich{
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.card-dash {
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-dash:hover {
+    transform: scale(1.1);
+}
+.carousel-inner{
+    width:100%;
+    max-height: 750px !important;
+  }
+
+.btn-outline-primary{
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.btn-outline-primary:hover{
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+.ayurrich-text{
+    color:  #B57EDC !important;
+}
+.ayurrich-bold-text{
+    color:  #9737db !important;
+}
+
+
+.header-row{
+    background-color: #B57EDC;
+}
+
+.number{
+    font-size: 0.8em;
+}
+.email{
+    font-size: 0.8em;
+}
+.cart-btn{
+    background-color: #B57EDC !important;
+    cursor: pointer;
+    transition: background-color 0.25s;
+
+}
+.cart-btn:hover{
+    background-color: #9737db !important;
+    color: white !important;
+
+}
+.banner-carousel{
+    width:100%;
+    height: auto;
+}
+.carousel-item{
+    height: auto !important;
+}
+.btn-primary-color{
+    background-color : #B57EDC !important;
+    color: black !important;
+
+}
+.btn-primary-color:hover{
+    background-color: #9737db !important;
+    color: white !important;
+}
+.btn-primary:hover{
+    background-color: #9737db !important;
+    color: white !important;
+
+}
+.btn-outline-secondary:hover{
+    background-color : #B57EDC !important;
+
+}
+.accordion-button{
+    box-shadow: none !important;
+    color: #B57EDC !important;
+}
+.accordion-flush>.accordion-item>.accordion-header .accordion-button:active,.accordion-button:focus{
+    background-color: #B57EDC !important;
+    color: #ffff !important;
+}
+.accordion-button:not(.collapsed){
+    background-color: #B57EDC !important;
+    color: #ffff !important;
+}
+
+.search:focus{
+    border-color: rgb(181, 126, 220) !important;
+    box-shadow: 0 0 0 .25rem rgba(181, 126, 220, .25) !important;
+}
+.card img{
+    max-height: 200px !important;
+}
+.form-control:focus{
+    border-color: rgb(181, 126, 220) !important;
+    box-shadow: 0 0 0 .25rem rgba(181, 126, 220, .25) !important;
+}
+
+.spinner{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+}
+.btn-spinner{
+    height: 50px !important;
+    width: 50px !important;
+    color: white !important;
+}
+
+
+.btn-close:focus,
+.btn-close:active,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+
+
+.progress-bar{
+    background-color: var(--primary-color) !important;
+}
+
+
+.toast-container {
+    z-index: 1050;  /* Ensure it appears on top of other elements */
+}
+.toast {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.toast.show {
+    opacity: 100;
+}
+
+.toast-red {
+    background-color: #f44336; /* Red color */
+    color: white;
+}
+
+.offcanvas-title img{
+    max-width: 120px;  /* Resize the logo */
+    height: auto;
+}
+.offcanvas-body ul.navbar-nav li.nav-item .nav-link {
+    width: 100%; /* Makes the buttons stretch to fit the available width */
+    max-width: 150px; /* Optional: Set a max width for buttons */
+  }
+
+
+.navbar-brand img {
+    max-width: 120px;  /* Resize the logo */
+    height: auto;
+  }
+
+
+
+.foot-logo img {
+    max-width: 180px;  /* Resize the logo */
+    height: auto;
+
+}
+  
+
+
+

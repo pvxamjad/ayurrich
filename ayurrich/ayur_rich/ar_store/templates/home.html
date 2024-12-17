@@ -1,0 +1,485 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- ///// carousel  -->
+
+<div class="container-fluid shadow-sm">
+    <div class="row">
+      <div id="carouselExampleAutoplaying" class="carousel py-5 slide" data-bs-ride="carousel">
+        <div class="carousel-inner shadow-lg ">
+          <div class="carousel-item active">
+            <img src="{% static 'img/banner/banner-3.jpg' %}" class="img-fluid rounded-4 banner-carousel  "
+              alt="..."><!-- size  -->
+          </div>
+          <div class="carousel-item ">
+            <img src="{% static 'img/banner/banner-3.jpg' %}" class="img-fluid rounded-4 banner-carousel  " alt="...">
+          </div>
+          <div class="carousel-item ">
+            <img src="{% static 'img/banner/banner-3.jpg' %}" class="img-fluid rounded-4 banner-carousel  " alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="prev">
+          <span class="" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="next">
+          <span class="" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+</div>
+<!-- ///// carousel end  -->
+
+
+<!-- //// years of expeirnce section  -->
+
+<div class="container-fluid my-5 shadow-sm">
+  
+    <div class="row">
+      <div class="col-6 col-lg-3 col-md-3 col-sm-6 py-3">
+        <div class="image text-center">
+          <img src="{% static 'img/samples/sample-1.png' %}" class="img-fluid border-0" style="height: 120px;" alt="">
+        </div>
+      </div>
+      <div class="col-6 col-lg-3 col-md-3 col-sm-6 py-3 d-flex align-items-center">
+        <div class=" text-center ">
+          <h1 class="h1  ayurrich-bold-text">10K</h1>
+          <strong>
+            <p class="display-6 ayurrich-text">Trusted Clients</p>
+          </strong>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3 col-md-3 col-sm-6 py-3 d-flex align-items-center">
+        <div class=" text-center ">
+          <h1 class="h1 ayurrich-bold-text">22+</h1>
+          <strong>
+            <p class="display-6 ayurrich-text">Top Rated Poducts</p>
+          </strong>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3 col-md-3 col-sm-6 py-3 d-flex align-items-center">
+        <div class=" text-center ">
+          <h1 class="h1 ayurrich-bold-text">31+</h1>
+          <strong>
+            <p class="display-6  ayurrich-text">Years Of Experience</p>
+          </strong>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- //// years of expeirnce section end  -->
+
+<!-- ///// most selling product  -->
+
+<div class="container-fluid py-3" id="most-selling">
+    <div class="row">
+      <div class="col-12 text-center pb-4">
+        <h3 class="display-5 fs-2 fw-semibold">
+          Our
+          <small class="text-body-secondary display-5 text-capitalize">most selling product's</small>
+        </h3>
+      </div>
+    </div>
+    <div class="row px-md-5">
+      {% for product in products %}
+      <div class="col-6 col-lg-3 col-md-4 col-sm-6 py-3">
+        <div class="card shadow-sm">
+          <a
+              href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text">
+              <img src="{{ product.image.url }}" class="card-img-top object-fit-cover" alt="...">
+            </a>
+          
+          <div class="card-body">
+            <p class=" my-1"><small>{{ product.category }}</small></p>
+            <h5 class="card-title text-capitalize">{{ product.name }}</h5>
+            <p class="card-text my-0 text-truncate">{{ product.description }}</p><a
+              href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text d-none d-md-block text-decoration-none">Read more...</a>
+            <!-- <p class="card-text my-0"><small>Bottle of 30 tablets</small></p> -->
+            <p class="card-text my-0 mb-2"><small>Item will be deliverd in <strong>5 Days</strong></small></p>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              <p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>
+                {{product.discount_price}}&#x20B9</strong></p>
+            </h6>
+            <a href="#" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill buy-now"
+              data-product-id="{{ product.id }}">
+              Buy Now
+            </a>
+            <button type="button" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill add-cart"
+              data-product-id="{{product.id}}">Add to Cart</button>
+
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+</div>
+
+
+<!-- ///// most selling product end  -->
+
+
+
+<!-- ///// provide section  -->
+
+<div class="conatainer-fluid py-5 shadow-sm" id="about-us">
+    <div class="row">
+
+      <div class="col-12">
+        <p class="text-center fs-5 fw-semibold text-capitalize ayurrich-text">Leaf in Life is a leading provider of
+          ayurvedic medicines in India. We are proud to offer the best-selling ayurvedic medicines in India. Our
+          products are trusted by millions of people, and we are confident that you will be satisfied with our products
+          as well.</p>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12 col-lg-5 d-flex align-items-center">
+        <img src="{% static 'img/providing/Bashpika-thulasi.png' %}" class="img-fluid" alt="">
+      </div>
+      <div class="col-12 col-lg-7 py-5">
+        <div class="row ">
+          <div class="card mb-3 border-0">
+            <div class="row g-0">
+              <div class="col-md-2">
+
+
+
+
+              </div>
+              <div class="col-md-10">
+                <div class="card-body">
+                  <h3 class="card-title fs-2 ayurrich-bold-text">Natural Ingredients</h3>
+                  <p class="card-text ayurrich-text">Ayurvedic products often contain a diverse array of ingredients
+                    derived from natural sources, each chosen for its specific therapeutic properties. These may include
+                    herbs such as ashwagandha, turmeric, neem, and tulsi, known for their antioxidant,
+                    anti-inflammatory, and immune-boosting properties.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card mb-3 border-0">
+            <div class="row g-0">
+              <div class="col-md-2">
+
+
+
+              </div>
+              <div class="col-md-10">
+                <div class="card-body">
+                  <h3 class="card-title fs-2 ayurrich-bold-text">No Chemical</h3>
+                  <p class="card-text ayurrich-text">Ayurvedic medicine is a traditional healing system that utilizes
+                    natural ingredients derived from plants, minerals, and other organic sources. These medicines are
+                    formulated without the use of synthetic chemicals or artificial additives.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- ///// provide section end  -->
+
+
+<!-- //// accordian section   -->
+
+<div class="container-fluid shadow-sm py-lg-5 py-3" id="questions">
+  <div class="container">
+
+  
+    <div class="row">
+      <div class="col-12 col-lg-6 mt-5 order-lg-1 order-2 d-inline-flex align-items-center ">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item box-shadow-none">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed ayurrich-bold-text fw-bolder" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                aria-controls="flush-collapseOne">
+                Are there any medications available to manage leg pain?
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse show"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body ayurrich-text">Yes, we offer Sukh Bodycare oil, which is effective in
+                alleviating general body pain. Additionally, we provide Sarvangam Thailam, which addresses various types
+                of pain such as back pain, joint pain, muscle pain, knee pain, rheumatoid arthritis, and swelling.
+                Sarvangam Thailam also promotes body rejuvenation and enhances immunity.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed ayurrich-bold-text fw-bolder" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                aria-controls="flush-collapseTwo">
+                If I encounter an issue with one of your products, to whom should I address my concerns regarding
+                quality assurance or the replacement of the product package?
+              </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body ayurrich-text">For any inquiries related to product quality or replacement of
+                packaging, you should contact the Quality Assurance Department of Leaf in Life Healthcare via our
+                Marketing Department. You can reach us via email at leafinlife2016@gmail.com.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed ayurrich-bold-text fw-bolder" type="button"
+                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                aria-controls="flush-collapseThree">
+                Can I conveniently purchase Leaf in Life products online?
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body ayurrich-text">Absolutely. Our extensive range of products is available for
+                direct purchase through our user-friendly website, providing customers with a seamless and convenient
+                shopping experience from the comfort of their own homes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 order-lg-2 order-1">
+        <img src="{% static 'img/accordion/accordion.png' %}" class="img-fluid" alt="">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- //// accordian section end   -->
+
+<!-- //// video section  -->
+
+<div class="container-fluid py-5 shadow-sm" id="reviews">
+    <div class="row">
+      <div class="col-12 col-md-4 ">
+        <div class="card">
+          <div class="card-header bg-white ayurrich-bold-text">
+            Reviews <span class="float-end ayurrich-bold-text">Videos</span>
+          </div>
+          <div class="card-body">
+
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-4 col-md-4">
+                    <img src="https://img.youtube.com/vi/qzzRHxK6aHE/hqdefault.jpg"
+                      class="img-thumbnail video-thumbnail"
+                      data-video="https://www.youtube.com/embed/qzzRHxK6aHE?si=-IQI7X8T1WVBnAUK" alt="Video 1">
+                  </div>
+                  <div class="col-8 col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-text ayurrich-bold-text fs-6 video-title"
+                        data-video="https://www.youtube.com/embed/qzzRHxK6aHE">
+                        Mr Kollam Thulasi</h5>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-4 col-md-4">
+                    <img src="https://img.youtube.com/vi/SgeInFlXZG4/hqdefault.jpg"
+                      class="img-thumbnail video-thumbnail"
+                      data-video="https://www.youtube.com/embed/SgeInFlXZG4?si=aoe11L07rNFrfVFM" alt="Video 2">
+                  </div>
+                  <div class="col-8 col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-text ayurrich-bold-text fs-6 video-title"
+                        data-video="https://www.youtube.com/embed/SgeInFlXZG4">
+                        Mr Kollam Thulasi</h5>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-4 col-md-4">
+                    <img src="https://img.youtube.com/vi/hyDZeQNvkOc/hqdefault.jpg"
+                      class="img-thumbnail video-thumbnail"
+                      data-video="https://www.youtube.com/embed/hyDZeQNvkOc?si=9V3xJ5tGdd2juxgr" alt="Video 3">
+                  </div>
+                  <div class="col-8 col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-text ayurrich-bold-text fs-6 video-title"
+                        data-video="https://www.youtube.com/embed/hyDZeQNvkOc">
+                        Mr Kollam Thulasi</h5>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-12 col-md-8  ">
+        <div class="ratio ratio-16x9">
+          <iframe id="videoPlayer" src="https://www.youtube.com/embed/HQoiQ1rf_ro?si=o5feHD_yYUGdUyo2"
+            title="YouTube video player" frameborder="5"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+
+    </div>
+</div>
+
+
+<!-- //// video section  end  -->
+
+
+<script>
+  // check if button pressed
+  $(document).on('click', '.add-cart', function (e) {
+    e.preventDefault();
+    // Get the product ID from the button's data attribute
+    let product_id = $(this).data('product-id');
+
+    // get product qty default = 1
+    let product_qty = $(this).data('product-qty') || 1;
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url "add_cart" %}',
+      data: {
+        product_id: product_id,
+        product_qty: product_qty,
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+
+      success: function (json) {
+        // console.log(json)
+        document.getElementById('cart_quantity').textContent = json.qty
+
+        // Show the success message inside the toast
+        let successMessage = json.message;
+
+        // Set the message text inside the toast body
+        $('#success-toast .toast-body').text(successMessage);
+
+        // Show the toast
+        var toastElement = new bootstrap.Toast($('#success-toast')[0]);
+        toastElement.show();
+
+
+
+      },
+
+      error: function (xhr, errmsg, err) {
+        console.error('Error:', errmsg);
+      }
+
+
+    });
+
+
+
+  });
+
+// // Handle Buy Now button click
+// $(document).on('click', '.buy-now', function (e) {
+//   e.preventDefault();
+
+//   // Get product ID and quantity
+//   let product_id = $(this).data('product-id');
+//   let product_qty = $(this).data('product-qty') || 1;
+
+//   $.ajax({
+//     type: 'POST',
+//     url: '{% url "add_cart" %}',  // Ensure this points to the correct "Add to Cart" URL
+//     data: {
+//       product_id: product_id,
+//       product_qty: product_qty,
+//       csrfmiddlewaretoken: '{{ csrf_token }}',
+//       action: 'post'
+//     },
+//     success: function () {
+//       // Redirect to the cart page after adding the item
+//       window.location.href = '{% url "cart" %}';
+//     },
+//     error: function (xhr, errmsg, err) {
+//       console.error('Error:', errmsg);
+//     }
+//   });
+// });
+
+$(document).on('click', '.buy-now', function (e) {
+  e.preventDefault();
+
+  // Get product ID and quantity
+  let product_id = $(this).data('product-id');
+  let product_qty = $(this).data('product-qty') || 1;
+
+  $.ajax({
+    type: 'POST',
+    url: '{% url "add_cart" %}',  // Ensure this points to the correct "Add to Cart" URL
+    data: {
+      product_id: product_id,
+      product_qty: product_qty,
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function (json) {
+      // Show the success message inside the toast
+      let successMessage = json.message;
+
+      // Set the message text inside the toast body
+      $('#success-toast .toast-body').text(successMessage);
+
+      // Show the toast
+      var toastElement = new bootstrap.Toast($('#success-toast')[0]);
+      toastElement.show();
+
+      // Redirect to the cart page after a short delay (e.g., 2 seconds)
+      setTimeout(function () {
+        window.location.href = '{% url "cart" %}';
+      }, 1000);
+    },
+    error: function (xhr, errmsg, err) {
+      console.error('Error:', errmsg);
+    }
+  });
+});
+
+
+
+  // JavaScript to handle video switching
+  const videoPlayer = document.getElementById('videoPlayer');
+
+  // Handle thumbnail clicks
+  document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+    thumbnail.addEventListener('click', () => {
+      const videoSrc = thumbnail.getAttribute('data-video');
+      videoPlayer.src = videoSrc;
+    });
+  });
+
+  // Handle title clicks
+  document.querySelectorAll('.video-title').forEach(title => {
+    title.addEventListener('click', () => {
+      const videoSrc = title.getAttribute('data-video');
+      videoPlayer.src = videoSrc;
+    });
+  });
+</script>
+
+{% endblock %}

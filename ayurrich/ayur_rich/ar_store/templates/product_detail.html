@@ -1,0 +1,488 @@
+ 
+ 
+ {% extends 'base.html' %}
+ {% load static %}
+ 
+ {% block content %}
+ 
+ 
+ <!-- //// search navbar -->
+
+  <div class="container-fluid col-12 col-md-12 col-sm-12">
+    <div class="row">
+      <nav class="navbar  fixed pt-4 pd-0">
+
+          <div class="col-6 px-md-5">
+            <nav
+              style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+              class="ms-3" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none ayurrich-bold-text">Home</a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'shop' %}" class="text-decoration-none ayurrich-bold-text">Shop</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-6 col-md-4 col-lg-3 px-md-5 ">
+            <form class="d-flex" method="GET" action="{% url 'shop' %}" role="search">
+            
+               <input class="form-control box-shadow-none search  me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+
+               <button class="btn btn-primary-color rounded-pill" type="submit">Search</button>
+            
+         </form>
+         </div>
+
+      </nav>
+    </div>
+  </div>
+
+  <!-- //// search navbar end -->
+
+
+
+  <!-- /// product information  -->
+
+  <div class="conatiner-fluid pt-4">
+      <div class="row">
+        <div class="col-12 col-md-6 ps-md-5 ">
+          <div id="carouselExampleInterval" class="carousel  slide shadow-lg" data-bs-ride="carousel">
+            <div class="carousel-inner ">
+              <div class="carousel-item active text-center" data-bs-interval="10000">
+                <img src="{{product.image.url}}" class=" img-fluid object-fit-cover scale-2  rounded product-img" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 pe-md-5">
+          <div class="card py-4 border-0 shadow-sm">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-body-secondary">
+                <p><del class="opacity-50">{{product.price}}&#x20B9</del>&nbsp;<strong>{{product.discount_price}}&#x20B9</strong></p>
+              </h6>
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text fw-lighter"><small>Item in stock | Qty:{{product.quantity}}</small></p>
+              <hr>
+              <div class="col-md-10 pb-3">
+                <p class="card-text my-0 mb-2"><small>Item will be deliverd in <strong>5 Days</strong></small></p>
+                <div class="hstack gap-3">
+
+                  
+                    <button type="button" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill add-cart" data-product-id="{{product.id}}" >Add to Cart</button>
+                </div>
+
+              </div>
+              <dl class="row py-5">
+                <dt class="col-sm-3 mb-3">Description</dt>
+                <dd class="col-sm-9 mb-3">
+                  <p class="fs-5">{{product.name}}</p>
+
+                  {{product.description}}
+                </dd>
+
+                <dt class="col-sm-3">Category</dt>
+                <dd class="col-sm-9">
+                  <p>Ayurvedic Medicine</p>
+                </dd>
+                {% if health_benefits %}
+            <dt class="col-sm-3">Health Benifits</dt>
+            <dd class="col-sm-9">{% for health in health_benefits %}
+              •{{health}} <br>
+
+              {% endfor %}
+            </dd>
+            {% else %}
+            <dt class="col-sm-3">Health Benifits</dt>
+            <dd class="col-sm-9">
+              
+            </dd>
+            {% endif %}
+
+    
+              </dl>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+  </div>
+
+
+
+  <!-- /// product information end  -->
+
+  <!-- /////////product reviewss -->
+  <div class="container-fluid py-4 ">
+      <div class="row">
+        <div class="col-12 py-4 text-center px-md-5">
+          <p class="h3 fs-1 ayurrich-bold-text">Customer Ratings and Reviews</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 pt-5 px-md-5">
+          <p class="fs-2 ayurrich-bold-text">Most helpful positive review</p>
+        </div>
+      </div>
+      
+      <!-- carousel review start  -->
+
+      <div class="row">
+        <div class="col-12 px-md-5">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-6 ">
+                    <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                    </p>
+                  </div>
+                  <div class="col-6">
+                    <p class="h5 float-end">Sunny <i class="opacity-50 fs-6 ms-md-2">Nov 04,2024</i> </p>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-12 pb-5">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa incidunt provident ad pariatur unde consectetur
+                    ipsum reprehenderit minima eligendi. Perferendis velit sit eius accusamus voluptatum molestiae minima? Minima
+                    pariatur debitis, temporibus omnis quaerat officia praesentium cumque nostrum dolorum porro deleniti?
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-6">
+                    <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                    </p>
+                  </div>
+                  <div class="col-6">
+                    <p class="h5 float-end">Amjad <i class="opacity-50 fs-6 ms-md-2">Nov 04,2024</i> </p>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-12 pb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam velit est sit quidem vero deleniti animi, aut non beatae illum officiis illo dolores doloremque possimus a eius, eaque quas sequi aperiam? Culpa quaerat temporibus, neque deleniti exercitationem accusamus in numquam. Omnis labore, distinctio a assumenda magnam id enim rerum, dolor aliquam inventore ipsum impedit consectetur. Modi harum velit nisi consectetur!
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- carousel review end  -->
+
+      <!-- /// all review  -->
+      <div class="col-12 px-md-5">
+
+        <p class="d-flex justify-content-end align-items-end gap-1">
+          <a class="btn btn-outline-secondary rounded-pill fw-semibold" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            View All Review
+          </a>
+         
+        </p>
+        <div class="collapse my-4 px-md-5" id="collapseExample">
+          <div class="card card-body">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+              <div class="col">
+                <div class="card h-100">
+                  <div class="card-body shadow">
+                    <p class="h5">Sunny <i class="opacity-50 fs-6 ms-md-2">Nov 04,2024</i> </p>
+                    <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                    </p>
+                    <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quia quibusdam consequuntur voluptatibus ex esse amet distinctio aspernatur, adipisci hic.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <div class="card-body shadow">
+                    <p class="h5">Amjad <i class="opacity-50 fs-6 ms-md-2">Sep 20,2024</i> </p>
+                    <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star ayurrich-bold-text"></i>
+                    </p>
+                    <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quia quibusdam consequuntur voluptatibus ex esse amet distinctio aspernatur, adipisci hic.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <div class="card-body shadow">
+                    <p class="h5">Musthafa <i class="opacity-50 fs-6 ms-md-2">Dec 02,2024</i> </p>
+                    <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star ayurrich-bold-text"></i>
+                    </p>
+                    <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quia quibusdam consequuntur voluptatibus ex esse amet distinctio aspernatur, adipisci hic.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <div class="card-body shadow">
+                    <p class="h5">John <i class="opacity-50 fs-6 ms-md-2">Jan 22,2024</i> </p>
+                    <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+                      <i class="bi ms-1 bi-star ayurrich-bold-text"></i>
+                    </p>
+                    <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit quia quibusdam consequuntur voluptatibus ex esse amet distinctio aspernatur, adipisci hic.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+<!-- /// all review end  -->
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-5 py-2 ps-md-5">
+
+          <div class="card shadow">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item border-0 mt-2">
+                <p class="fs-5 fw-semibold">5<i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i></p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                  aria-valuemax="100" style="height: 6px">
+
+                  <div class="progress-bar progress-bar" style="width: 100%"></div>
+                </div>
+              </li>
+              <li class="list-group-item border-0 ">
+                <p class="fs-5 fw-semibold">4<i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i></p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                  aria-valuemax="100" style="height: 6px">
+
+                  <div class="progress-bar progress-bar" style="width: 65%"></div>
+                </div>
+              </li>
+              <li class="list-group-item border-0 ">
+                <p class="fs-5 fw-semibold">3<i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i></p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                  aria-valuemax="100" style="height: 6px">
+
+                  <div class="progress-bar progress-bar" style="width: 75%"></div>
+                </div>
+              </li>
+              <li class="list-group-item border-0 ">
+                <p class="fs-5 fw-semibold">2<i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i></p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                  aria-valuemax="100" style="height: 6px">
+
+                  <div class="progress-bar progress-bar" style="width: 10%"></div>
+                </div>
+              </li>
+              <li class="list-group-item border-0 mb-4">
+                <p class="fs-5 fw-semibold">1<i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i></p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                  aria-valuemax="100" style="height: 6px">
+
+                  <div class="progress-bar progress-bar" style="width: 0%"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+        <div class="col-12 col-md-7 py-2 pe-md-5">
+          <div class="card shadow py-4  mb-3">
+            <div class="row g-0">
+              <div class="col-md-5 d-grid text-center">
+
+                <p class="display-5 m-0 fw-medium">4.3</p>
+                <p class="opacity-75 m-0"><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i><i
+                    class="bi ms-1 bi-star-fill ayurrich-bold-text"></i><i
+                    class="bi ms-1 bi-star-fill ayurrich-bold-text"></i><i
+                    class="bi ms-1 bi-star-fill ayurrich-bold-text"></i><i
+                    class="bi ms-1 bi-star-fill ayurrich-bold-text"></i></p>
+                <p class="opacity-50 m-0">46 ratings</p>
+              </div>
+              
+              <div class="col-md-7 ">
+                <div class="card-body d-grid col-6 col-md-8 mx-auto justify-content-center align-items-center ">
+                  <button  class="btn btn-primary btn-primary-color border-0 rounded-pill my-2 opacity-50"  data-bs-toggle="modal" data-bs-target="#writeReview" disabled>Write Review</button>
+                     <!-- Button trigger modal -->
+                           
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      
+    
+  </div>
+
+
+
+
+  <!-- /////////product reviewss -->
+
+
+
+
+    <!-- ///// modal  -->
+<!-- Modal -->
+<div class="modal fade" id="writeReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Write a Review</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Customer Name</label>
+          <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address</label>
+          <input type="email" class="form-control form-control-sm" id="exampleFormControlInput1" >
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Phone</label>
+          <input type="number" class="form-control form-control-sm" id="exampleFormControlInput1" >
+        </div>
+        <div class="col-6">
+          <label for="exampleFormControlInput1" class="form-label">Your rating</label>
+
+          <p class="opacity-75 "><i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+            <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+            <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+            <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+            <i class="bi ms-1 bi-star-fill ayurrich-bold-text"></i>
+          </p>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Explain yor review</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+        </div>
+        
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary border-0 rounded-pill my-2" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-primary-color border-0 rounded-pill my-2">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!-- ///// modal end  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  // check if button pressed
+  $(document).on('click', '.add-cart', function(e){
+      e.preventDefault();
+      // Get the product ID from the button's data attribute
+      let product_id = $(this).data('product-id');
+
+      // get product qty default = 1
+      let product_qty = $(this).closest('.hstack').find('.product-qty').val() || 1;
+      
+      // Validate and limit the quantity to a maximum of 20
+      product_qty = Math.min(20, Math.max(1, parseInt(product_qty)));
+      $.ajax({
+        type: 'POST',
+        url: '{% url "add_cart" %}',
+        data: {
+          product_id: product_id,
+          product_qty:product_qty,
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+
+        success: function(json){
+          // console.log(json)
+          document.getElementById('cart_quantity').textContent = json.qty
+  
+             // Show the success message inside the toast
+             let successMessage = json.message;
+
+              // Set the message text inside the toast body
+              $('#success-toast .toast-body').text(successMessage);
+
+              // Show the toast
+              var toastElement = new bootstrap.Toast($('#success-toast')[0]);
+              toastElement.show();
+
+
+        },
+
+        error: function(xhr, errmsg, err){
+
+        }
+
+
+      });
+
+
+
+  })
+
+
+  </script>
+
+{% endblock %}

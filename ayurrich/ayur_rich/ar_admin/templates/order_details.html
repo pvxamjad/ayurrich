@@ -1,0 +1,76 @@
+{% extends 'admin_base.html' %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container pt-5 ps-sm-1">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item active display-5  fw-normal" aria-current="page"><a href="{% url 'all-orders' %}" class="ayurrich-bold-text text-decoration-none">All Orders</a></li>
+                      <li class="breadcrumb-item active display-5 ayurrich-bold-text fw-normal" aria-current="page"><a class="fs-5 ayurrich-bold-text text-decoration-none ">{{order}}</a></li>
+
+                    </ol>
+                  </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card" >
+                    <div class="card-body">
+                      <h5 class="card-title fs-3 mb-2">Shipping Details</h5>
+                      <p class="card-text text-capitalize fw-semibold mt-4">full name: {{ order.shipping_info.full_name }}</p>
+                      <p class="card-text text-capitalize fw-semibold">email: {{ order.shipping_info.email }}</p>
+                      <p class="card-text text-capitalize fw-semibold">address: {{ order.shipping_info.address }}</p>
+                      <p class="card-text text-capitalize fw-semibold">city: {{ order.shipping_info.city }}</p>
+                      <p class="card-text text-capitalize fw-semibold">state: {{ order.shipping_info.state }}</p>
+                      <p class="card-text text-capitalize fw-semibold">pincode: {{ order.shipping_info.pincode }}</p>
+                      <p class="card-text text-capitalize fw-semibold">country: {{ order.shipping_info.country }}</p>
+                      <p class="card-text text-capitalize fw-semibold">shipping state: 
+                        {% if order.is_shipped %}
+                        order shipped
+                        {% else %}
+                        order not shipped yet
+                        {% endif %}
+                      </p>
+                      <p class="card-text text-capitalize fw-semibold">Orderd Date: {{order.orderd_date}}
+                        
+                      </p>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title fs-3 mb-2">Product Details</h5>
+                      <p class="card-text text-capitalize fw-semibold mt-4">
+                          <ul>
+                          {% for product in order_products %}
+                              <li>
+                                  <strong>{{ product.product }}</strong><br>
+                                  Quantity: {{ product.quantity }}<br>
+                                  Price: ₹{{ product.price }}<br>
+                                  Total Price: ₹{{ product.total_price }}
+                              </li>
+                          {% endfor %}
+                      </ul>
+
+                      </p>
+                      
+                    <p class="card-text text-capitalize fw-semibold">Total Amount: {{ order.total_amount }}</p>
+
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <br><br><br>
+        
+    </div>
+    
+</div>
+
+
+
+{% endblock %}

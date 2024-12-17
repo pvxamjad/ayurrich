@@ -1,0 +1,65 @@
+{% extends 'admin_base.html' %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container pt-5 ps-sm-1">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item active display-5 ayurrich-bold-text fw-normal" aria-current="page">Dashboard</li>
+                    </ol>
+                    <a class="icon-link icon-link-hover float-end" style="--bs-link-hover-color-rgb: 255,0,0" href="{% url 'logout' %}">
+                      <i class="bi bi-box-arrow-left"></i> Log Out
+                      <svg class="bi" aria-hidden="true"></svg>
+                    </a>
+                  </nav>
+                  
+            </div>
+
+        </div>
+        <div class="row mt-sm-4">
+            <div class="col-6 col-md-4 ps-sm-4">
+                <div class="card card-dash border-0 bg-ayurrich p-4">
+                    <a href="{% url 'all-orders' %}" class="text-decoration-none text-white">
+                     <div class="card-body" >
+                    <h5 class="card-title fs-3 mb-2">Total Orders<i class="bi bi-bag-fill float-end"></i></h5>
+                      <p class="card-text fs-4 my-2 lh-lg">{{order_count}}</p>
+                    </div>   
+                    </a>
+                    
+                  </div>
+            </div>
+            <div class="col-6 col-md-4 ps-sm-4">
+                <div class="card card-dash border-0 bg-ayurrich p-4">
+                    <a href=" {% url 'completed-orders' %}" class="text-decoration-none text-white">
+
+                    <div class="card-body" >
+                    <h5 class="card-title fs-3 mb-2">Completed Orders<i class="bi bi-check2-circle float-end"></i></h5>
+                      <p class="card-text fs-4 my-2 lh-lg">{{completed_order_count}}</p>
+                    </div>
+                    </a>
+                  </div>
+            </div>
+            <div class="col-6 col-md-4 ps-sm-4">
+                <div class="card card-dash border-0 bg-ayurrich p-4">
+                    <a href="{% url 'all-products' %}" class="text-decoration-none text-white">
+
+                    <div class="card-body" >
+                    <h5 class="card-title fs-3 mb-2">All products<i class="bi bi-shop float-end"></i></h5>
+                      <p class="card-text fs-4 my-2 lh-lg">{{ count }}</p>
+                    </div>
+                    </a>
+                  </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+
+
+{% endblock %}
