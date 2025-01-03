@@ -16,7 +16,7 @@
                         </button>
                         {% if cart %}
                         <button type="button" class="btn cart-btn rounded-pill float-end  position-relative">
-                          <a href="{% url 'cart' %}" class="fw-semibold btn-primary-color text-decoration-none ">Cart
+                          <a href="{% url 'cart' %}" class="fw-semibold text-white text-decoration-none ">Cart
                           <span
                               class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart_quantity">
                               {{cart|length}}
@@ -24,8 +24,8 @@
                             </span></a>
                           </button>
                           {% else %}
-                          <button type="button" class="btn cart-btn rounded-pill float-end  position-relative">
-                            <a href="{% url 'cart' %}" class="fw-semibold btn-primary-color text-decoration-none ">Cart
+                          <button type="button" class="btn btn-primary-color rounded-pill float-end  position-relative">
+                            <a href="{% url 'cart' %}" class="fw-semibold text-white text-decoration-none ">Cart
                             </button>
                           {% endif %}
                           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -34,8 +34,8 @@
                                 alt="" ></a>  
                               <button type="button" class="btn-close border-0 box-shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
-                            <div class="offcanvas-body">
-                              <ul class="navbar-nav ms-auto me-1">
+                            <div class="offcanvas-body d-flex justify-content-center">
+                              <ul class="navbar-nav ms-lg-auto d-flex justify-content-center">
                                 <li class="nav-item fw-semibold ps-2" >
                                     <a class="nav-link  btn btn-primary rounded-pill"  href="{% url 'home' %}">Home</a>
                                 </li>

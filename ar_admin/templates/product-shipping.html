@@ -59,7 +59,7 @@
                                         <strong>
                                             <h5 class="card-title fs-4 mb-2">Shipping Details</h5>
                                             <p class="card-text text-capitalize mt-4">Id: {{ order.id }}<br>
-                                                Order ID: {{ order.order_id }}<br>
+                                                Order ID: {{ order.order_id }} <br>
                                                 Full Name: {{ order.shipping_info.full_name }}<br>
                                                 Email: {{ order.shipping_info.email }}<br>
                                                 Address: {{ order.shipping_info.address }}<br>
@@ -125,7 +125,11 @@
                               <div class="card-body">
                                       <strong>
                                         <h5 class="card-title fs-4 mb-2">Shipping Details</h5>
-                                        <p class="card-text text-capitalize mt-4">Id: {{ order.id }}<br>
+                                        <p class="card-text text-capitalize mt-4">Id: {{ order.id }} 
+                                        {% if order.orderd_date == today and not order.is_shipped %}
+                                            <span class="badge ms-auto text-bg-secondary">New</span>
+                                        {% endif %}
+                                        <br>
                                             Order id: {{ order.order_id }} <br>
                                           full name: {{ order.shipping_info.full_name }} <br>
                                             email: {{ order.shipping_info.email }} <br>

@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <nav class="navbar  fixed pt-4  px-md-5 ">
+            <nav class="navbar fixed pt-4  px-md-5">
                           <div class="col-6">
                             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" class="ms-3" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -30,7 +30,6 @@
                           </div>
                       </nav>
           </div>
-                    
             </div>
     </div>
 
@@ -46,12 +45,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 ">
+                <div class="col-12">
                     <div class="dropdown-center">
                         <button class="btn btn-secondary dropdown-toggle float-end me-lg-5 bg-transparent ayurrich-bold-text border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Filter
                         </button>
-                        <ul class="dropdown-menu  border-0">
+                        <ul class="dropdown-menu  border shadow">
                           <li><a class="dropdown-item ayurrich-bold-text " href="{% url 'shop' %}">All</a></li>
 
                           {% for category in categorys %}
@@ -64,7 +63,7 @@
             <div class="row px-md-5">
               {% if products %}
                 {% for product in products %}
-                <div class="col-6 col-lg-3 col-md-4 py-2 ">
+                <div class="col-6 col-lg-3 col-md-4 py-2">
                     <div class="card shadow-sm">
                       <a
                       href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text">
@@ -72,7 +71,7 @@
                     </a>                      
                     <div class="card-body">
                           <p class=" my-1 d-none d-sm-block"><small>{{ product.category }}</small></p>
-                        <h5 class="card-title text-capitalize">{{ product.name }}</h5>
+                        <h5 class="card-title text-capitalize text-truncate">{{ product.name }}</h5>
                         <p class="card-text my-0 mb-2 text-truncate" >{{ product.description }}</p><a href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text d-none d-md-block text-decoration-none">Read more...</a>
                         <!-- <p class="card-text my-0"><small>Bottle of 30 tablets</small></p> -->
                         <p class="card-text my-0 mb-2 d-none d-sm-block"><small>Item will be deliverd in <strong>5 Days</strong></small></p>

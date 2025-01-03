@@ -210,6 +210,10 @@ def product_shipping(request):
                 filters |= Q(orderd_date__icontains=q)  # If it's a string like "2024-12", filter by date (contains match)
                 filters |= Q(shipped_date__icontains=q)  # If it's a string match for shipped date (also supports date search)
 
+
+        # Get the current date in the local time zone (Asia/Kolkata)
+        today = timezone.localtime(timezone.now()).date()
+
         # Get the filtered orders based on the filters (if any)
         orders = OrderSummary.objects.filter(filters).order_by('-id')
 
@@ -219,7 +223,8 @@ def product_shipping(request):
 
         return render(request, 'product-shipping.html', {
             'shipped_orders': shipped_orders,
-            'not_shipped_orders': not_shipped_orders
+            'not_shipped_orders': not_shipped_orders,
+            'today' : today,
         })
     else:
         # Raise a 404 error if the user is not authenticated

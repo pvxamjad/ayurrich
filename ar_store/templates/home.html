@@ -87,38 +87,41 @@
     </div>
     <div class="row px-md-5">
       {% for product in products %}
-      <div class="col-6 col-lg-3 col-md-4 col-sm-6 py-3">
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 py-3">
         <div class="card shadow-sm">
-          <a
-              href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text">
-              <img src="{{ product.image.url }}" class="card-img-top object-fit-cover" alt="...">
-            </a>
-          
+          <a href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text">
+            <img src="{{ product.image.url }}" class="card-img-top object-fit-cover" alt="...">
+          </a>
           <div class="card-body">
-            <p class=" my-1"><small>{{ product.category }}</small></p>
-            <h5 class="card-title text-capitalize">{{ product.name }}</h5>
-            <p class="card-text my-0 text-truncate">{{ product.description }}</p><a
-              href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text d-none d-md-block text-decoration-none">Read more...</a>
-            <!-- <p class="card-text my-0"><small>Bottle of 30 tablets</small></p> -->
-            <p class="card-text my-0 mb-2"><small>Item will be deliverd in <strong>5 Days</strong></small></p>
-            <h6 class="card-subtitle mb-2 text-body-secondary">
-              <p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>
-                {{product.discount_price}}&#x20B9</strong></p>
-            </h6>
-            <a href="#" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill buy-now"
-              data-product-id="{{ product.id }}">
-              Buy Now
+            <p class="my-1 d-none d-md-block"><small>{{ product.category }}</small></p>
+            <h5 class="card-title text-capitalize text-truncate">{{ product.name }}</h5>
+            <p class="card-text text-truncate">{{ product.description }}</p>
+            <a href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text text-decoration-none d-none d-md-block">
+              Read more...
             </a>
-            <button type="button" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill add-cart"
-              data-product-id="{{product.id}}">Add to Cart</button>
-
+            <p class="card-text my-0 mb-2 d-none d-md-block">
+              <small>Item will be delivered in <strong>5 Days</strong></small>
+            </p>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              <p>
+                <del class="opacity-50">{{ product.price }}&#x20b9</del>&nbsp;
+                <strong>{{ product.discount_price }}&#x20B9</strong>
+              </p>
+            </h6>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill buy-now" data-product-id="{{ product.id }}">
+                Buy Now
+              </button>
+              <button type="button" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill add-cart" data-product-id="{{ product.id }}">
+                Add to Cart
+              </button>
+            </div>
           </div>
         </div>
       </div>
-
       {% endfor %}
-
     </div>
+    
 </div>
 
 
@@ -128,7 +131,7 @@
 
 <!-- ///// provide section  -->
 
-<div class="conatainer-fluid py-5 shadow-sm" id="about-us">
+<div class="container-fluid py-5 shadow-sm" id="about-us">
     <div class="row">
 
       <div class="col-12">

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Terms & Conditions
+{% endblock %}
+
+{% block content %}
+<div class="container terms-container">
+    <h2>Return Policy</h2>
+We offer refund / exchange within first 7 days from the date of your purchase. If 7 days have passed since your purchase, you will not be offered a return, exchange or refund of any kind. In order to become eligible for a return or an exchange, (i) the purchased item should be unused and in the same condition as you received it, (ii) the item must have original packaging, (iii) if the item that you purchased on a sale, then the item may not be eligible for a return / exchange. Further, only such items are replaced by us (based on an exchange request), if such items are found defective or damaged.<br>
+You agree that there may be a certain category of products / items that are exempted from returns or refunds. Such categories of the products would be identified to you at the item of purchase. For exchange<br>
+/ return accepted request(s) (as applicable), once your returned product / item is received and inspected by us, we will send you an email to notify you about receipt of the returned / exchanged product. Further. If the same has been approved after the quality check at our end, your request (i.e. return / exchange) will be processed in accordance with our policies.<br>
+ 
+
+</div>
+
+<style>
+    .terms-container {
+        max-width: 1300px;
+        margin: auto;
+        padding: 5px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .terms-container h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .terms-list {
+        counter-reset: section;
+        padding-left: 0;
+    }
+
+    .terms-list > li {
+        list-style: none;
+        counter-increment: section;
+        margin-bottom: 20px;
+    }
+
+    .terms-list > li h3::before {
+        content: counter(section) ". ";
+        font-weight: bold;
+    }
+
+    .terms-list p, .terms-list ul {
+        margin-left: 20px;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .terms-list ul {
+        list-style-type: disc;
+        margin-top: 10px;
+    }
+
+    .intro-text {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+{% endblock %}

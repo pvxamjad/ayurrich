@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Terms & Conditions
+{% endblock %}
+
+{% block content %}
+<div class="container terms-container">
+    <h2>Shipping Policy</h2>
+    <br>
+    The orders for the user are shipped through registered domestic courier companies and/or speed post only. Orders are shipped within 7 days from the date of the order and/or payment or as per the delivery date agreed at the time of order confirmation and delivering of the shipment, subject to courier company / post office norms. Platform Owner shall not be liable for any delay in delivery by the courier company / postal authority. Delivery of all orders will be made to the address provided by the buyer at the time of purchase. Delivery of our services will be confirmed on your email ID as specified at the time of registration. If there are any shipping cost(s) levied by the seller or the Platform Owner (as the case be), the same is not refundable.
+</div>
+
+<style>
+    .terms-container {
+        max-width: 1300px;
+        margin: auto;
+        padding: 5px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .terms-container h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .terms-list {
+        counter-reset: section;
+        padding-left: 0;
+    }
+
+    .terms-list > li {
+        list-style: none;
+        counter-increment: section;
+        margin-bottom: 20px;
+    }
+
+    .terms-list > li h3::before {
+        content: counter(section) ". ";
+        font-weight: bold;
+    }
+
+    .terms-list p, .terms-list ul {
+        margin-left: 20px;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .terms-list ul {
+        list-style-type: disc;
+        margin-top: 10px;
+    }
+
+    .intro-text {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+{% endblock %}
