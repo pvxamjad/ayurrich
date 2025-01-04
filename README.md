@@ -19,5 +19,5 @@ check out the link https://ayurrich-production.up.railway.app/
 
 ## Screenshots
 
-![App Screenshot](https://drive.google.com/file/d/1cSCDy4pMcEV3mVQY2Is5Hz2oiXdni-ht/view?usp=drive_link)
+![App Screenshot]([https://drive.google.com/file/d/1cSCDy4pMcEV3mVQY2Is5Hz2oiXdni-ht/view?usp=drive_link](https://drive.google.com/file/d/1cSCDy4pMcEV3mVQY2Is5Hz2oiXdni-ht/view?usp=sharing))
 
