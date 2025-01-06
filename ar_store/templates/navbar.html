@@ -1,61 +1,53 @@
 
 {% load static %}
 
-<!-- ///// navbar start  -->
+<!-- Navbar -->
 <div class="container-fluid shadow-sm">
-    <div class="row">
-        <nav class="navbar bg-body-tertiary  navbar-expand-lg px-md-5  ps-3">
-            
-                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3 d-flex justify-content-start">
-                    <a class="navbar-brand py-0" href="{% url 'home' %}"><img src="{% static 'img/ayur-rich-logo.png' %}" class="img-fluid d-inline-block align-text-top"
-                        alt="" ></a>                    
-                    </div>
-                    <div class=" col-lg-9 col-sm-9 col-md-9 col-xs-9 ">
-                      <button class="navbar-toggler border-0  float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
-                        </button>
-                        {% if cart %}
-                        <button type="button" class="btn cart-btn rounded-pill float-end  position-relative">
-                          <a href="{% url 'cart' %}" class="fw-semibold text-white text-decoration-none ">Cart
-                          <span
-                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart_quantity">
-                              {{cart|length}}
-                              
-                            </span></a>
-                          </button>
-                          {% else %}
-                          <button type="button" class="btn btn-primary-color rounded-pill float-end  position-relative">
-                            <a href="{% url 'cart' %}" class="fw-semibold text-white text-decoration-none ">Cart
-                            </button>
-                          {% endif %}
-                          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                            <div class="offcanvas-header">
-                              <a class="offcanvas-title p-0" id="offcanvasNavbarLabel" href="{% url 'home' %}"><img src="{% static 'img/ayur-rich-landscape.png' %}" class="img-fluid d-inline-block align-text-top"
-                                alt="" ></a>  
-                              <button type="button" class="btn-close border-0 box-shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body d-flex justify-content-center">
-                              <ul class="navbar-nav ms-lg-auto d-flex justify-content-center">
-                                <li class="nav-item fw-semibold ps-2" >
-                                    <a class="nav-link  btn btn-primary rounded-pill"  href="{% url 'home' %}">Home</a>
-                                </li>
-                                <li class="nav-item fw-semibold  ps-2" >
-                                    <a class="nav-link  btn btn-primary rounded-pill"  href="{% url 'shop' %}">Shop</a>
-                                </li>
-                                <li class="nav-item fw-semibold  ps-2" >
-                                    <a class="nav-link  btn btn-primary rounded-pill"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Contact</a>
-                                </li>
-                                
-                              </ul>
-                              
-                            </div>     
-                        </div>
-                    </div>
-                    
-             </nav>
+  <div class="row">
+    <nav class="navbar bg-body-tertiary navbar-expand-lg px-md-5 ps-3" id="navbar">
+      <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3 d-flex justify-content-start">
+        <a class="navbar-brand py-0" href="{% url 'home' %}">
+          <img src="{% static 'img/ayur-rich-logo.png' %}" class="img-fluid d-inline-block align-text-top" alt="" id="logo">
+        </a>
+      </div>
+      <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9">
+        <button class="navbar-toggler border-0 float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <button type="button" class="btn cart-btn rounded-pill float-end position-relative">
+          <a href="{% url 'cart' %}" class="fw-semibold text-white text-decoration-none">Cart
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart_quantity">
+              {{cart|length}}
+            </span>
+          </a>
+        </button>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <a class="offcanvas-title p-0" id="offcanvasNavbarLabel" href="{% url 'home' %}">
+              <img src="{% static 'img/ayur-rich-landscape.png' %}" class="img-fluid d-inline-block align-text-top" alt="">
+            </a>
+            <button type="button" class="btn-close border-0 box-shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body d-flex justify-content-center" id="navbar-right">
+            <ul class="navbar-nav ms-lg-auto d-flex justify-content-center">
+              <li class="nav-item fw-semibold ps-2">
+                <a class="nav-link btn btn-primary rounded-pill" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item fw-semibold ps-2">
+                <a class="nav-link btn btn-primary rounded-pill" href="{% url 'shop' %}">Shop</a>
+              </li>
+              <li class="nav-item fw-semibold ps-2">
+                <a class="nav-link btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Contact</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
-<!-- ///// navbar end  -->
+      </div>
+    </nav>
+  </div>
+</div>
 
 
 <!-- ///// messages   -->

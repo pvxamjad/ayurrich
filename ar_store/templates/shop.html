@@ -52,11 +52,14 @@
                         </button>
                         <ul class="dropdown-menu  border shadow">
                           <li><a class="dropdown-item ayurrich-bold-text " href="{% url 'shop' %}">All</a></li>
-
-                          {% for category in categorys %}
-                          <li><a class="dropdown-item ayurrich-bold-text " href="{% url 'shop' %}?q={{category.name}}">{{ category.name }}</a></li>
-                          {% endfor %}
-                        </ul>
+                          <li>
+                            <a class="dropdown-item ayurrich-bold-text {% if current_sort == 'price_low_to_high' %}active{% endif %}" 
+                               href="{% url 'shop' %}?sort_by=price_low_to_high">Price Low <i class="bi bi-arrow-down"></i> to High <i class="bi bi-arrow-up"></i></a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item ayurrich-bold-text {% if current_sort == 'price_high_to_low' %}active{% endif %}" 
+                               href="{% url 'shop' %}?sort_by=price_high_to_low">Price High <i class="bi bi-arrow-up"></i> to Low <i class="bi bi-arrow-down"></i></a>
+                          </li></ul>
                       </div>                    
                     </div>
             </div>
@@ -66,18 +69,18 @@
                 <div class="col-6 col-lg-3 col-md-4 py-2">
                     <div class="card shadow-sm">
                       <a
-                      href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text">
+                      href="{% url 'product_dtails' product.id %}" class="ayurrich-bold-text">
                       <img src="{{ product.image.url }}" class="card-img-top object-fit-cover " alt="...">
                     </a>                      
                     <div class="card-body">
                           <p class=" my-1 d-none d-sm-block"><small>{{ product.category }}</small></p>
                         <h5 class="card-title text-capitalize text-truncate">{{ product.name }}</h5>
-                        <p class="card-text my-0 mb-2 text-truncate" >{{ product.description }}</p><a href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text d-none d-md-block text-decoration-none">Read more...</a>
+                        <p class="card-text my-0 mb-2 text-truncate" >{{ product.description }}</p><a href="{% url 'product_dtails' product.id %}" class="ayurrich-bold-text d-none d-md-block text-decoration-none">Read more...</a>
                         <!-- <p class="card-text my-0"><small>Bottle of 30 tablets</small></p> -->
                         <p class="card-text my-0 mb-2 d-none d-sm-block"><small>Item will be deliverd in <strong>5 Days</strong></small></p>
                          <h6 class="card-subtitle mb-2 text-body-secondary"><p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>{{ product.discount_price }}&#x20B9</strong></p>
                           </h6>
-                        <a href="{% url 'product_dtails' product.name %}" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill">View Item</a>
+                        <a href="{% url 'product_dtails' product.id %}" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill">View Item</a>
                         <button type="button" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill add-cart" data-product-id="{{product.id}}" >Add to Cart</button>
         
                       </div>

@@ -89,14 +89,14 @@
       {% for product in products %}
       <div class="col-6 col-sm-6 col-md-4 col-lg-3 py-3">
         <div class="card shadow-sm">
-          <a href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text">
+          <a href="{% url 'product_dtails' product.id %}" class="ayurrich-bold-text">
             <img src="{{ product.image.url }}" class="card-img-top object-fit-cover" alt="...">
           </a>
           <div class="card-body">
             <p class="my-1 d-none d-md-block"><small>{{ product.category }}</small></p>
             <h5 class="card-title text-capitalize text-truncate">{{ product.name }}</h5>
             <p class="card-text text-truncate">{{ product.description }}</p>
-            <a href="{% url 'product_dtails' product.name %}" class="ayurrich-bold-text text-decoration-none d-none d-md-block">
+            <a href="{% url 'product_dtails' product.id %}" class="ayurrich-bold-text text-decoration-none d-none d-md-block">
               Read more...
             </a>
             <p class="card-text my-0 mb-2 d-none d-md-block">
@@ -335,6 +335,7 @@
       </div>
       <div class="col-12 col-md-8  ">
         <div class="ratio ratio-16x9">
+          
           <iframe id="videoPlayer" src="https://www.youtube.com/embed/HQoiQ1rf_ro?si=o5feHD_yYUGdUyo2"
             title="YouTube video player" frameborder="5"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share"
@@ -383,8 +384,6 @@
         var toastElement = new bootstrap.Toast($('#success-toast')[0]);
         toastElement.show();
 
-
-
       },
 
       error: function (xhr, errmsg, err) {
@@ -397,34 +396,6 @@
 
 
   });
-
-// // Handle Buy Now button click
-// $(document).on('click', '.buy-now', function (e) {
-//   e.preventDefault();
-
-//   // Get product ID and quantity
-//   let product_id = $(this).data('product-id');
-//   let product_qty = $(this).data('product-qty') || 1;
-
-//   $.ajax({
-//     type: 'POST',
-//     url: '{% url "add_cart" %}',  // Ensure this points to the correct "Add to Cart" URL
-//     data: {
-//       product_id: product_id,
-//       product_qty: product_qty,
-//       csrfmiddlewaretoken: '{{ csrf_token }}',
-//       action: 'post'
-//     },
-//     success: function () {
-//       // Redirect to the cart page after adding the item
-//       window.location.href = '{% url "cart" %}';
-//     },
-//     error: function (xhr, errmsg, err) {
-//       console.error('Error:', errmsg);
-//     }
-//   });
-// });
-
 $(document).on('click', '.buy-now', function (e) {
   e.preventDefault();
 

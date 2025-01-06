@@ -11,6 +11,7 @@ import json
 from django.shortcuts import get_object_or_404
 import logging
 import pytz
+from .utils import send_order_email  # Import the email function
 
 logger = logging.getLogger(__name__)
 
@@ -265,6 +266,11 @@ def save_order_summary(request):
             )
 
             if order_summary:
+
+                # Call the function to send email after order is created
+                send_order_email(order_summary)
+
+                
                 # Clear the cart
                 cart = Cart(request)
                 cart.clear()
@@ -297,3 +303,6 @@ def payment_success(request):
 
 
     return render(request, 'payment_success.html', context)
+
+
+

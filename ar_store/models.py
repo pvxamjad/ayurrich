@@ -38,3 +38,16 @@ class Contact(models.Model):
 
 
 
+class Review(models.Model):
+    customer_name = models.CharField(max_length=255)
+    product_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    rating = models.PositiveSmallIntegerField()  # 1 to 5
+    review_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review for {self.product_name} by {self.customer_name}"
+
+
