@@ -38,8 +38,6 @@ def save_contact(request):
 
 
 
-
-
 def home(request):
 
     products = ProductRegistration.objects.all()[:4]
