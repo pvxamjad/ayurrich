@@ -91,10 +91,10 @@ Total Price: {{ order.total_price }} &#x20B9;
                                       </div>
                                     
                                       <div class="col-10 mb-4">
-                                        <h6>Delivery Charge: 40 ₹</h6> 
+                                        <h6>Delivery Charge: {{ delivery_charge }} ₹</h6> 
                                         
                                         <label for="totalAmount" class="form-label">Total Amount</label>
-                                        <input type="text" class="form-control" id="totalAmount" readonly value="{{ subtotal }} ₹">
+                                        <input type="text" class="form-control" id="totalAmount" readonly value="{{ total }} ₹">
                                     </div>
 
                                     <div class="col-12">
@@ -225,7 +225,7 @@ document.getElementById('pay-now-button').onclick = function () {
             country: "{{ form.instance.country }}"
         },
         order_products: orderProducts,  // Send the parsed orderProducts array
-        total_amount: "{{ subtotal|floatformat:2 }}"
+        total_amount: "{{ total|floatformat:2 }}"
     };
 
     // Send the order summary to the backend to save it

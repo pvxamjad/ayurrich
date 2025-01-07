@@ -31,7 +31,6 @@ def billing(request):
     # Calculate subtotal from cart data
     product_totals = {}
     subtotal = 0
-    delivery_charge = 40
     for product_id, quantity in cart_data.items():
         try:
             product = ProductRegistration.objects.get(id=product_id)
@@ -41,7 +40,10 @@ def billing(request):
             subtotal += total_price
         except ProductRegistration.DoesNotExist:
             print(f"Product with ID {product_id} does not exist.")
-    subtotal += delivery_charge
+
+    # Add delivery charge condition
+    delivery_charge = 0 if subtotal > 500 else 40
+    total = subtotal + delivery_charge
 
     # Handle item removal from cart (if applicable)
     if 'remove_from_cart' in request.GET:
@@ -135,9 +137,10 @@ def billing(request):
         'form': form,
         'order_products': order_products,  # Pass saved cart details to the template
         'subtotal': subtotal,  # Pass subtotal to the template
+        'delivery_charge': delivery_charge,  # Pass delivery charge to the template
+        'total': total,  # Pass total to the template
         'is_address_saved_in_db': is_address_saved_in_db,  # Flag to indicate if address is saved
     })
-
 
 
 
