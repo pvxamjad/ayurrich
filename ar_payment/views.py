@@ -12,8 +12,37 @@ from django.shortcuts import get_object_or_404
 import logging
 import pytz
 from .utils import send_order_email  # Import the email function
+from django.conf import settings
+from .razorpay import RazorpayClient  # Import your Razorpay wrapper class
 
 logger = logging.getLogger(__name__)
+
+@csrf_exempt
+def create_razorpay_order(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            amount = data.get("amount", 0)  # Amount in paisa (1 INR = 100 paisa)
+            receipt = data.get("receipt", "order_rcptid_11")
+
+            razorpay_client = RazorpayClient()
+            order = razorpay_client.create_order(amount=amount, currency="INR", payment_capture=1)
+            return JsonResponse({"success": True, **order})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+    return JsonResponse({"success": False, "error": "Invalid request method"})
+
+@csrf_exempt
+def verify_razorpay_payment(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            razorpay_client = RazorpayClient()
+            razorpay_client.verify_signature(data)
+            return JsonResponse({"success": True})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+    return JsonResponse({"success": False, "error": "Invalid request method"})
 
 def billing(request):
     # Ensure session exists
@@ -21,7 +50,6 @@ def billing(request):
         request.session.create()
 
     session_id = request.session.session_key
-
     # Get cart data from session
     cart_data = request.session.get('session_key', {})
     
@@ -140,113 +168,9 @@ def billing(request):
         'delivery_charge': delivery_charge,  # Pass delivery charge to the template
         'total': total,  # Pass total to the template
         'is_address_saved_in_db': is_address_saved_in_db,  # Flag to indicate if address is saved
+        'RAZORPAY_KEY_ID': settings.RAZORPAY_KEY_ID, #passing razorpay key
     })
 
-
-
-
-# def create_razorpay_order(request):
-#     # Ensure session exists
-#     if not request.session.session_key:
-#         request.session.create()
-
-#     session_id = request.session.session_key
-
-#     # Get cart data from session
-#     cart_data = request.session.get('session_key', {})
-    
-#     if not cart_data:
-#         return redirect('cart')  # Redirect if cart is empty
-
-#     # Calculate subtotal from cart data
-#     subtotal = 0
-#     for product_id, quantity in cart_data.items():
-#         try:
-#             product = ProductRegistration.objects.get(id=product_id)
-#             price = product.discount_price
-#             total_price = price * quantity
-#             subtotal += total_price
-#         except ProductRegistration.DoesNotExist:
-#             print(f"Product with ID {product_id} does not exist.")
-
-#     # Initialize Razorpay client
-#     client = razorpay.Client(auth=("rzp_test_9VqLqFRzWF6IKv", "your_razorpay_secret"))
-    
-#     # Convert subtotal to paisa (1 INR = 100 paisa)
-#     amount_in_paisa = subtotal * 100
-
-#     # Prepare Razorpay order data
-#     order_data = {
-#         "amount": amount_in_paisa,  # Amount in paisa (Razorpay expects paisa)
-#         "currency": "INR",
-#         "payment_capture": 1,
-#     }
-
-#     # Create Razorpay order
-#     order = client.order.create(data=order_data)
-#     razorpay_order_id = order['id']
-
-#     # Pass razorpay_order_id and subtotal to the template
-#     return render(request, 'billing.html', {
-#         'razorpay_order_id': razorpay_order_id,
-#         'subtotal': subtotal,  # Pass subtotal to the template
-#     })
-
-
-# //// if razorpay chack 
-
-# @csrf_exempt
-# def verify_razorpay_payment(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         razorpay_payment_id = data.get('razorpay_payment_id')
-#         razorpay_order_id = data.get('razorpay_order_id')
-#         razorpay_signature = data.get('razorpay_signature')
-
-#         # Here you would typically verify the payment with Razorpay's API
-#         # For now, let's assume the payment is successful
-
-#         # Create a unique order ID
-#         order_id = f"ORDER_{int(timezone.now().timestamp())}"
-
-#         # Get the session ID
-#         session_id = request.session.session_key
-
-#         # Fetch order products for the session
-#         order_products = OrderProducts.objects.filter(session_id=session_id)
-
-#         # Prepare order products data
-#         ordered_products = []
-#         total_amount = 0
-#         for order_product in order_products:
-#             ordered_products.append({
-#                 'product_id': order_product.product.id,
-#                 'quantity': order_product.quantity,
-#                 'price': order_product.price,
-#                 'total_price': order_product.total_price,
-#             })
-#             total_amount += order_product.total_price
-
-#             # Decrease the product quantity in the ProductRegistration model
-#             product = order_product.product
-#             product.quantity -= order_product.quantity  # Assuming you have a quantity field
-#             product.save()
-
-#         # Save order summary
-#         order_summary = OrderSummary.objects.create(
-#             order_id=order_id,
-#             shipping_info=request.session.get('shipping_address', {}),
-#             order_products=ordered_products,
-#             total_amount=total_amount,
-#         )
-
-#         # Clear the cart after successful payment
-#         OrderProducts.objects.filter(session_id=session_id).delete()
-#         request.session['session_key'] = {}  # Clear the session cart
-
-#         return JsonResponse({'success': True, 'order_id': order_summary.order_id})
-
-#     return JsonResponse({'success': False}, status=400)
 @csrf_exempt
 def save_order_summary(request):
     if request.method == 'POST':

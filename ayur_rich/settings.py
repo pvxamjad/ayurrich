@@ -19,8 +19,8 @@ SECRET_KEY = 'django-insecure-eit(d(=%b-b*u$bkii(i_kuv-56lavdq(0$aw_xus6%(z4bnbx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://ayurrich-production.up.railway.app']
+ALLOWED_HOSTS = ['*',"www.ayurrich.in","ayurrich.in"]
+CSRF_TRUSTED_ORIGINS = ['https://ayurrich-production.up.railway.app','https://ayurrich.in']
 
 
 # Application definition
@@ -153,3 +153,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'amjadpvamd@gmail.com'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'ikre uvgc xghm kzrj'  # Replace with your email password
 DEFAULT_FROM_EMAIL = 'amjadpvamd@gmail.com'  # Replace with your email
+
+
+RAZORPAY_KEY_ID = "rzp_test_4SBBJf0DWzfLwK"
+RAZORPAY_KEY_SECRET = "ZjhkAJNPxbKnbUiHOR2CAcIa"
