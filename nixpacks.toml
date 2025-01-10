@@ -1,3 +1,2 @@
-[build]
-builder = "python"
-python_version = "3.12.8"  # Ensure this matches the version you're using locally
+[start]
+cmd = "python manage.py runserver 0.0.0.0:8000"
