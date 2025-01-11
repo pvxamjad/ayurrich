@@ -1,3 +1,5 @@
-
-[start]
-python manage.py migrate && gunicorn ayur_rich.wsgi     
+[phases.start]
+commands = [
+    "python manage.py migrate",
+    "gunicorn ayur_rich.wsgi:application --bind 0.0.0.0:$PORT"
+]
