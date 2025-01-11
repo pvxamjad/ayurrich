@@ -105,6 +105,7 @@ Total Price: {{ order.total_price }} &#x20B9;
                                         {% if is_address_saved_in_db %}
                                         <!-- <button type="button" class="btn btn-primary btn-primary-color rounded-pill border-0" id="pay-now-button">Pay Now</button> -->
                                         <button type="button" class="btn btn-primary btn-primary-color rounded-pill border-0" id="razorpay-button">Pay Now</button>
+                                        <button id="razorpay-button" style="display:none;">Pay Now</button>
                                         {% else %}
                                         <button type="button" class="btn btn-secondary rounded-pill border-0" disabled>Complete Billing Info</button>
                                     {% endif %}
@@ -128,40 +129,31 @@ Total Price: {{ order.total_price }} &#x20B9;
 
     <script>
 document.getElementById("razorpay-button").onclick = function () {
-    // Initialize an empty array to store products as dictionaries
     var orderProducts = [];
-
-    // Get the value from the read-only textarea and split by double newlines for each product
     var orderInfo = document.getElementById('order-info').value.trim().split("\n\n");
 
-    // Loop through each product block
     orderInfo.forEach(orderText => {
-        var productDetails = {}; // Initialize an empty dictionary for each product
-        var lines = orderText.split("\n"); // Split each product block into lines
+        var productDetails = {};
+        var lines = orderText.split("\n");
 
         lines.forEach(line => {
-            var [key, value] = line.split(":").map(item => item.trim()); // Split key-value pairs
+            var [key, value] = line.split(":").map(item => item.trim());
             if (key && value) {
-                // Normalize keys (convert to lowercase and remove spaces)
                 key = key.toLowerCase().replace(" ", "_");
 
-                // Parse numeric values (price, quantity, total_price)
                 if (key === "quantity" || key === "price" || key === "total_price") {
-                    value = parseFloat(value.replace("₹", "").trim()); // Remove currency and parse float
+                    value = parseFloat(value.replace("₹", "").trim());
                 }
 
-                // Store the parsed key-value pair in the productDetails object
                 productDetails[key] = value;
             }
         });
 
-        // If the productDetails object is not empty, add it to the orderProducts array
         if (Object.keys(productDetails).length > 0) {
             orderProducts.push(productDetails);
         }
     });
 
-    // Build the order summary object
     var order_summary = {
         shipping_info: {
             full_name: "{{ form.instance.full_name }}",
@@ -172,16 +164,14 @@ document.getElementById("razorpay-button").onclick = function () {
             pincode: "{{ form.instance.pincode }}",
             country: "{{ form.instance.country }}"
         },
-        order_products: orderProducts,  // Send the parsed orderProducts array
+        order_products: orderProducts,
         total_amount: "{{ total|floatformat:2 }}"
     };
 
-    // Show the spinner before making the request
     const spinnerElement = document.querySelector('.spinner');
-    spinnerElement.style.display = 'flex';  // Show the spinner
-    spinnerElement.style.opacity = '1';    // Ensure spinner is visible
+    spinnerElement.style.display = 'flex';
+    spinnerElement.style.opacity = '1';
 
-    // Make a request to create the Razorpay order
     fetch("/billing/create-razorpay-order/", {
         method: "POST",
         headers: {
@@ -189,23 +179,22 @@ document.getElementById("razorpay-button").onclick = function () {
             "X-CSRFToken": "{{ csrf_token }}"
         },
         body: JSON.stringify({
-            amount: parseFloat(order_summary.total_amount) * 100, // Convert total to paisa
+            amount: parseFloat(order_summary.total_amount) * 100,
             currency: "INR",
-            receipt: "order_rcptid_11", // Optional: Replace with your receipt logic
+            receipt: "order_rcptid_11", 
         }),
     })
     .then((response) => response.json())
     .then((data) => {
         if (data.success) {
             var options = {
-                key: "{{ RAZORPAY_KEY_ID }}", // Your Razorpay API key
+                key: "{{ RAZORPAY_KEY_ID }}",
                 amount: data.amount,
                 currency: data.currency,
                 name: "Ayur Rich Ingredients",
-                description: `Order Payment of {amount}`,
+                description: `Order Payment of ₹{{ total }}`,
                 order_id: data.id,
                 handler: function (response) {
-                    // Handle successful payment
                     fetch("/billing/verify-razorpay-payment/", {
                         method: "POST",
                         headers: {
@@ -220,35 +209,36 @@ document.getElementById("razorpay-button").onclick = function () {
                     })
                     .then((verifyResponse) => verifyResponse.json())
                     .then((verifyData) => {
-                        // Hide the spinner after response is received
                         if (verifyData.success) {
-                            // Save order summary after successful payment
                             fetch("/billing/save-order-summary/", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                     "X-CSRFToken": "{{ csrf_token }}"
                                 },
-                                body: JSON.stringify(order_summary),
+                                body: JSON.stringify({
+                                    order_id: response.razorpay_order_id,
+                                    shipping_info: order_summary.shipping_info,
+                                    order_products: order_summary.order_products,
+                                    total_amount: order_summary.total_amount,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                }),
                             })
                             .then((saveResponse) => saveResponse.json())
                             .then((saveData) => {
-                                // Keep spinner visible while redirecting
                                 setTimeout(() => {
-                                    spinnerElement.style.opacity = '0';  // Fade out spinner
+                                    spinnerElement.style.opacity = '0';
                                     setTimeout(() => {
-                                        spinnerElement.style.display = 'none';  // Hide spinner after fade out
-                                        // Now redirect to the payment success page
+                                        spinnerElement.style.display = 'none';
                                         window.location.href = "/billing/payment-success/?order_id=" + saveData.order_id;
-                                    }, 1000); // Wait for spinner fade out
-                                }, 0); // Immediate fade-out, with delay for smooth transition
+                                    }, 1000);
+                                }, 0);
                             });
                         } else {
                             alert("Payment verification failed!");
                         }
                     })
                     .catch((error) => {
-                        // Handle error
                         console.error("Error:", error);
                         alert("An error occurred while verifying the payment.");
                     });
@@ -261,25 +251,29 @@ document.getElementById("razorpay-button").onclick = function () {
                 theme: {
                     color: "#B57EDC",
                 },
+                modal: {
+                    ondismiss: function () {
+                        console.log("Payment canceled by user.");
+                        window.location.href = "/billing/payment_fail/"; // Redirect if payment is canceled
+                    },
+                },
             };
 
             var rzp = new Razorpay(options);
             rzp.open();
         } else {
-            // Hide the spinner if order creation fails
             spinnerElement.style.opacity = '0';
             setTimeout(() => {
-                spinnerElement.style.display = 'none';  // Hide spinner after fade out
+                spinnerElement.style.display = 'none';
             }, 1000);
 
             alert("Failed to create Razorpay order: " + data.error);
         }
     })
     .catch((error) => {
-        // Hide the spinner in case of error
         spinnerElement.style.opacity = '0';
         setTimeout(() => {
-            spinnerElement.style.display = 'none';  // Hide spinner after fade out
+            spinnerElement.style.display = 'none';
         }, 1000);
 
         console.error("Error:", error);
@@ -289,6 +283,11 @@ document.getElementById("razorpay-button").onclick = function () {
 
 
 
+// Trigger Razorpay button automatically if pay_now=true
+const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('pay_now') === 'true') {
+        document.getElementById("razorpay-button").click();
+    }
 
 
 // // Attach the click event to the "Pay Now" button

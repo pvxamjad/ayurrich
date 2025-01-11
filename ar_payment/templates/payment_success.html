@@ -1,93 +1,145 @@
 {% extends 'success_base.html' %}
 {% load static %}
 {% block content %}
-    <!-- /// Billing information  -->
-        <div class="conatiner-fluid py-5">
-                <div class="container">
-                    <div class="row" >
-                        <div class="col-12 col-md-12" id="invoice">
-                            <div class="card  shadow-lg" >
-                                <div class="card-body">
-                                    <div class="card-title py-3 bg-white border-0">
-                                        <h4 class=" display-5 ">
-                                            Order Placed Successfully
-                                        </h4>
-                                        {% if success_message %}
-                                            <div class="alert alert-success">
-                                                {{ success_message }}
-                                            </div>
-                                        {% endif %}
+    <!-- Billing Information -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="card shadow-lg" id="order-card-{{ order_summary.order_id }}">
+                        <div class="card-body">
+                            <div class="border border-3 mb-3 border-success"></div>
+                            <div class="mb-4 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75"
+                                    fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                </svg>
+                            </div>
+                            <div class="text-center">
+                                <h1 class="display-5">Thank You! Order Placed Successfully</h1>
+                                <p>We've sent the order details to your inbox.</p>
+                            </div>
+                            <div class="card-text">
+                                <div class="col-md-12 mb-1">
+                                    <label for="exampleFormControlTextarea1" class="form-label fs-5 fw-bolder">Shipping Details</label>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Full Name:</strong> {{ shipping_info.full_name }}</p>
+                                            <p><strong>Email:</strong> {{ shipping_info.email }}</p>
+                                            <p><strong>Address:</strong> {{ shipping_info.address }}</p>
+                                            <p><strong>City:</strong> {{ shipping_info.city }}</p>
+                                            <p><strong>State:</strong> {{ shipping_info.state }}</p>
+                                            <p><strong>Pincode:</strong> {{ shipping_info.pincode }}</p>
+                                            <p><strong>Country:</strong> {{ shipping_info.country }}</p>
+                                        </div>
                                     </div>
-                                    <div class="card-text">
-                                        <div class="col-md-12 mb-1">
-                                            <label for="exampleFormControlTextarea1" class="form-label fs-5 fw-bolder">Shipping Details</label>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <p><strong>Full Name:</strong> {{ shipping_info.full_name }}</p>
-                                                    <p><strong>Email:</strong> {{ shipping_info.email }}</p>
-                                                    <p><strong>Address:</strong> {{ shipping_info.address }}</p>
-                                                    <p><strong>City:</strong> {{ shipping_info.city }}</p>
-                                                    <p><strong>State:</strong> {{ shipping_info.state }}</p>
-                                                    <p><strong>Pincode:</strong> {{ shipping_info.pincode }}</p>
-                                                    <p><strong>Country:</strong> {{ shipping_info.country }}</p>
-                                                </div>
-                                            </div>
-                                            <label for="exampleFormControlTextarea1" class="form-label fs-5 fw-bolder">Order Info</label>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5>Order ID: {{ order_summary.order_id }}</h5>
+                                    <label for="exampleFormControlTextarea1" class="form-label fs-5 fw-bolder">Order Info</label>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5>Order ID: {{ order_summary.order_id }}</h5>
 
-                                                    <p class="card-text text-capitalize mt-4">
-                                                        <ul>
-                                                            {% for product in order_summary.order_products %}
-                                                            <li>
-                                                                product: {{ product.product }}<br>
-                                                                Quantity: {{ product.quantity }}<br>
-                                                                Price: {{ product.price }} ₹<br>
-                                                                Total Price: {{ product.total_price }} ₹
-                                                                
-                                                            </li>
-                                                            {% endfor %}
-
-                                                            
-                                                        </ul>
-                                                        <h6>Delivery Charge: 40 ₹</h6> 
-                                                    <h6>Total Amount: {{ order_summary.total_amount }} ₹</h6> 
-                                                    </p>
-                                                    
-                                                </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-md-12 mb-4">
-                                            <label for="exampleFormControlInput1" class="form-label fs-5 fw-bolder">Total Amount Paid</label>
-                                            <p>
-                                                {{ order_summary.total_amount }}  &#x20b9 <br>
-                                            </p>
-                                          </div>
-                                    </form>
+                                            <ul>
+                                                {% for product in order_summary.order_products %}
+                                                <li>
+                                                    Product: {{ product.product }}<br>
+                                                    Quantity: {{ product.quantity }}<br>
+                                                    Price: {{ product.price }} ₹<br>
+                                                    Total Price: {{ product.total_price }} ₹
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <h6>Delivery Charge: 40 ₹</h6>
+                                            <h6>Total Amount: {{ order_summary.total_amount }} ₹</h6>
+                                        </div>
                                     </div>
                                 </div>
-                              </div>
+                                <div class="col-md-12 mb-4">
+                                    <label for="exampleFormControlInput1" class="form-label fs-5 fw-bolder">Total Amount Paid</label>
+                                    <p>{{ order_summary.total_amount }} &#x20b9</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container">
-                <div class="row py-5">
-                       <div class="col-12 ">
-                    <button id="print-button" class="btn btn-primary btn-primary-color border-0 rounded-pill">Download as PDF</button>
-                    </div> 
+                <div class="col-12 mt-3">
+                    <div class="card mb-3 shadow-lg py-2">
+                        <div class="row g-0">
+                            <div class="col-md-2 text-center position-relative">
+                                <img src="{% static '/payment.png' %}" class="img-fluid rounded-start position-absolute top-50 start-50 translate-middle" alt="Payment" height="80" width="80">
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ order_summary.total_amount }} &#x20b9 Received Successfully</h5>
+                                    <p class="card-text"><small class="text-body-secondary">Payment Created On: {{ order_summary.orderd_date }}</small></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
+            </div>
+            <div class="container">
+                <div class="row py-2">
+                    <div class="col-12">
+                        <a href="javascript:void(0);" onclick="printOrder('{{ order_summary.order_id }}');" class="btn btn-primary btn-primary-color border-0 rounded-pill">Download as PDF</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    <!-- /// Billing information end  -->
-    <!-- /// foooter section end  -->
-    <script>
-        document.getElementById('print-button').addEventListener('click', function() {
-            window.print(); // This will open the print dialog for the entire page
-        });
-    </script>
+    </div>
+    
 
-   
+<script>
+      function printOrder(order_summary) {
+    console.log("Print function called with order ID:", order_summary);
+
+    // Find the order details container by ID
+    const orderCard = document.getElementById(`order-card-${order_summary}`);
+    console.log("Found orderCard:", orderCard);
+
+    if (!orderCard) {
+        alert("Order details not found.");
+        return;
+    }
+
+    // Extract the content to be printed (just the required details)
+    const orderDetails = orderCard.querySelector('.card-body').innerHTML;
+
+    // Create a new window to render the print content
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+
+    // Write the content to the new window
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Print in #${order_summary}</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
+                .card-title { font-size: 1.5rem; margin-bottom: 10px; }
+                .card-text { font-size: 1rem; margin-bottom: 15px; }
+                ul { list-style-type: disc; padding-left: 20px; }
+                li { margin-bottom: 5px; }
+            </style>
+        </head>
+        <body>
+            <h1>Shipping and Order Details</h1>
+            ${orderDetails}
+        </body>
+        </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+
+    // Trigger the print dialog
+    printWindow.print();
+
+    // Close the window after printing (optional, depending on user preference)
+    printWindow.onafterprint = () => printWindow.close();
+}
+</script>
+
+    
 {% endblock %}
-

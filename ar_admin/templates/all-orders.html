@@ -33,6 +33,7 @@
                             
                             <tr>
                               <th scope="col" class="py-4" >Order Id</th>
+                              <th scope="col" class="py-4" >Razorpay Id</th>
                               <th scope="col" class="py-4" >Customer Name</th>
                               <th scope="col" class="py-4">Shipping Status</th>
                               <th scope="col" class="py-4">Orderd Date</th>
@@ -52,6 +53,12 @@
                     <span class="badge ms-4 text-bg-secondary">New</span>
                 {% endif %}
                                  
+                                </a>
+                                
+                              </td>
+                              <td scope="row">
+                                <a href="{% url 'all-orders/order-details' order.order_id %}" class="text-decoration-none text-dark fw-semibold">
+                                  {{ order.razorpay_id }}                 
                                 </a>
                                 
                               </td>

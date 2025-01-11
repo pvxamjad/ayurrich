@@ -21,7 +21,8 @@
                 <div class="card" >
                     <div class="card-body">
                       <h5 class="card-title fs-3 mb-2">Shipping Details</h5>
-                      <p class="card-text text-capitalize fw-semibold mt-4">full name: {{ order.shipping_info.full_name }}</p>
+                      <p class="card-text text-capitalize fw-semibold mt-4">Razorpay id: {{ order.razorpay_id }}</p>
+                      <p class="card-text text-capitalize fw-semibold ">full name: {{ order.shipping_info.full_name }}</p>
                       <p class="card-text text-capitalize fw-semibold">email: {{ order.shipping_info.email }}</p>
                       <p class="card-text text-capitalize fw-semibold">address: {{ order.shipping_info.address }}</p>
                       <p class="card-text text-capitalize fw-semibold">city: {{ order.shipping_info.city }}</p>

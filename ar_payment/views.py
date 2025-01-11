@@ -176,38 +176,42 @@ def save_order_summary(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            logger.debug("Received data: %s", data)
 
-            # Retrieve order_products as is (since it's already a structured list of dictionaries)
-            order_products = data.get('order_products', [])
+            # Extract razorpay_payment_id
+            razorpay_payment_id = data.get('razorpay_payment_id', None)
 
+            # Generate order_id
             current_time = timezone.now().astimezone(pytz.timezone('Asia/Kolkata'))
-            # Save the order summary
             order_id = f"ORDER_{int(current_time.strftime('%Y%m%d%H%M%S'))}"
+
+            # Save the order summary
             order_summary = OrderSummary.objects.create(
                 order_id=order_id,
                 shipping_info=data.get('shipping_info', {}),
-                order_products=order_products,  # Save the structured list directly
+                order_products=data.get('order_products', []),
                 total_amount=data.get('total_amount', 0),
-                
+                razorpay_id=razorpay_payment_id  # Save Razorpay payment ID
             )
 
             if order_summary:
+                send_order_email(order_summary)  # Send confirmation email
 
-                # Call the function to send email after order is created
-                send_order_email(order_summary)
-
-                
                 # Clear the cart
                 cart = Cart(request)
                 cart.clear()
 
-                 # Remove the products from OrderProducts model based on session ID
+                # Ensure cart data is removed from the session
+                request.session['cart'] = {}
+
+                # Remove OrderProducts tied to the session
                 session_id = request.session.session_key
+                logger.debug(f"Session ID: {session_id}")  # Debug log to check session_id
                 OrderProducts.objects.filter(session_id=session_id).delete()
 
-                request.session['success_message'] = "Your order has been placed successfully!"
+                # Debug log for cart clearing
+                logger.debug("Cart cleared and order products deleted.")
 
+                request.session['success_message'] = "Your order has been placed successfully!"
                 return JsonResponse({'success': True, 'order_id': order_summary.order_id})
 
         except Exception as e:
@@ -215,6 +219,8 @@ def save_order_summary(request):
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
     return JsonResponse({'success': False}, status=400)
+
+
 
 def payment_success(request):
     order_id = request.GET.get('order_id')
@@ -232,4 +238,19 @@ def payment_success(request):
     return render(request, 'payment_success.html', context)
 
 
+
+def payment_fail(request):
+    # Retrieve query parameters from Razorpay redirect
+    payment_id = request.GET.get('razorpay_payment_id', None)
+    order_id = request.GET.get('razorpay_order_id', None)
+    signature = request.GET.get('razorpay_signature', None)
+
+    context = {
+        "payment_id": payment_id,
+        "order_id": order_id,
+        "signature": signature,
+    }
+
+    # Render the payment failure page
+    return render(request, "payment_failed.html", context)
 

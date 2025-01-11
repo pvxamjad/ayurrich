@@ -43,6 +43,7 @@ class OrderSummary(models.Model):
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)  # Ensure this field is defined
     is_shipped = models.BooleanField(default=False,null=True,blank=True)
     orderd_date = models.DateField(auto_now_add=True, blank=True, null=True)
+    razorpay_id = models.CharField(max_length=100, unique=True,blank=True, null=True)
     shipped_date = models.DateTimeField(null=True, blank=True)  # Date when the order was shipped
 
     def __str__(self):

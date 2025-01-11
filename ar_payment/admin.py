@@ -9,6 +9,7 @@ admin.site.register(OrderProducts)
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'order_id',
+        'razorpay_id',
         'total_amount',
         'is_shipped'
         )  # Add 'created_at' here to show in the list view.

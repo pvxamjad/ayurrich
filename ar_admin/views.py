@@ -134,6 +134,7 @@ def all_orders(request):
                 else:
                     filters |= Q(order_id__icontains=q)
                     filters |= Q(orderd_date__icontains=q)
+                    filters |= Q(razorpay_id__icontains=q)
             except ValueError:
                 pass
 
