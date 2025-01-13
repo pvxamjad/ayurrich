@@ -1,2 +1,7 @@
 [start]
-command = "daphne -b 0.0.0.0:$PORT your_project_name.asgi:application"
+command = "daphne -b 0.0.0.0:$PORT ayur_rich.asgi:application"
+
+[install]
+commands = [
+  "pip install -r requirements.txt" 
+] 
