@@ -1,249 +1,227 @@
- {% extends 'base.html' %}
- {% load static %}
- {% block content %}
-    <!-- //// cart body  -->
-    <div class="container-fluid ">
-            <div class="row">
-                <div class="col-12 py-4 px-md-5 ">
-                    <div class="position-relative m-4">
-                        <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-                            <div class="progress-bar" style="width: 0%"></div>
-                        </div>
-                        <button
-                            class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary btn-primary-color border-0 rounded-pill">Cart</button>
-                        <button
-                            class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill">Billing</button>
-                        <button
-                            class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill">Payment</button>
-                    </div>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- //// cart body  -->
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-12 py-4 px-md-5 ">
+            <div class="position-relative m-4">
+                <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0"
+                    aria-valuemax="100" style="height: 1px;">
+                    <div class="progress-bar" style="width: 0%"></div>
                 </div>
+                <button
+                    class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary btn-primary-color border-0 rounded-pill">Cart</button>
+                <button
+                    class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill">Billing</button>
+                <button
+                    class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill">Payment</button>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-center py-4">
-
-                        <h2 class="display-5 fw-semibold ayurrich-bold-text">Your Cart ({{cart|length}} Items)</h2>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center py-4">
+                <h2 class="display-5 fw-semibold ayurrich-bold-text">Your Cart ({{cart|length}} Items)</h2>
             </div>
-            <div class="row">
-                <div class="col-12 px-md-5">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                {% if cart_products %}
-                                <tr>
-                                  <th scope="col" class="py-4" >Items</th>
-                                  <th scope="col" class="py-4" >Price</th>
-                                  <th scope="col" class="py-4" >Quantity</th>
-                                  <th scope="col" class="py-4" >Total</th>
-                                </tr>
-                                {% else %}
-                                {% endif %}
-                              </thead>
-                              <tbody >
-                                {% if cart_products %}
-                                {% for product in cart_products %}
-                                <tr >
-                                  <td scope="row">
-                                    <div class="card mb-3 border-0">
-                                        <div class="row">
-                                          <div class="col-md-4 text-center">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-md-5">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        {% if cart_products %}
+                        <tr>
+                            <th scope="col" class="py-4">Items</th>
+                            <th scope="col" class="py-4">Price</th>
+                            <th scope="col" class="py-4">Quantity</th>
+                            <th scope="col" class="py-4">Total</th>
+                        </tr>
+                        {% else %}
+                        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% if cart_products %}
+                        {% for product in cart_products %}
+                        <tr>
+                            <td scope="row">
+                                <div class="card mb-3 border-0">
+                                    <div class="row">
+                                        <div class="col-md-4 text-center">
                                             <a href="{% url 'product_dtails' product.id %}" class="ayurrich-bold-text">
-                                                <img src="{{ product.image.url }}" class="img-fluid object-fit-contain border-0"
-                                                alt="...">
+                                                <img src="{{ product.image.url }}"
+                                                    class="img-fluid object-fit-contain border-0" alt="...">
                                             </a>
-                                          </div>
-                                          <div class="col-md-8">
+                                        </div>
+                                        <div class="col-md-8">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ product.name }}</h5>
-                                                <p class="card-text my-0 text-capitalize"><small>{{product.category}}</small></p>
+                                                <p class="card-text my-0 text-capitalize">
+                                                    <small>{{product.category}}</small></p>
                                                 <p class="card-text my-0 text-capitalize"><small>
-                                                    {% for key, value in quantities.items %}
+                                                        {% for key, value in quantities.items %}
                                                         {% if key == product.id|slugify %}
-                                                            product quantity : {{value}}
+                                                        product quantity : {{value}}
                                                         {% endif %}
-                                                    {% endfor %}
-                                                </small></p>
-                                                <a class="icon-link icon-link-hover link-danger link-underline-danger link-underline-opacity-25 remove-cart-item mt-4" href="#" data-product-id="{{ product.id }}">
+                                                        {% endfor %}
+                                                    </small></p>
+                                                <a class="icon-link icon-link-hover link-danger link-underline-danger link-underline-opacity-25 remove-cart-item mt-4"
+                                                    href="#" data-product-id="{{ product.id }}">
                                                     Rmove Item
-                                                    <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
-                                                  </a>
+                                                    <svg class="bi" aria-hidden="true">
+                                                        <use xlink:href="#arrow-right"></use>
+                                                    </svg>
+                                                </a>
                                             </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                  </td>
-                                  <td>
-                                    <div class="price mt-3">
-                                        <h6 class="card-subtitle mb-2 text-body-secondary"><p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>{{ product.discount_price }}&#x20B9</strong></p>
-                                        </h6>
-                                       </div>
-                                   </td>
-                                  <td>
-                                    <div class="quantity mt-3">
-                                        <input 
-                                            class="form-control form-control-sm quantity-input" 
-                                            type="number" 
-                                            value="{% for key, value in quantities.items %}{% if key == product.id|slugify %}{{ value }}{% endif %}{% endfor %}"
-                                            min="1" 
-                                            max="20" 
-                                            data-product-id="{{ product.id }}" 
-                                            data-index="{{ loop.index }}"
-                                        >
-                                        <button type="button" class="btn btn-sm btn-secondary rounded-pill mt-2 text-wrap update-qty" data-index="{{ loop.index }}" data-product-id="{{ product.id }}">Update Qty</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="total-price mt-3">
-                                        <p class="h5 fs-6">
-                                        
-                                         {% for key, value in product_totals.items %}
-                                             {% if key == product.id|stringformat:"s" %}
-                                                 {{ value }} &#x20B9
-                                             {% endif %}
-                                         {% endfor %}
-                                        </p>
-                                    </div>
-                                   </td>
-                                </tr>
-                                {% endfor %}
-                                
-
-                              </tbody>
-                        </table>
-                        {% else %}
-                                <div class="conatiner-fluid py-4">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12 col-md-12 d-flex justify-content-center align-items-center">
-                                                <div class="card shadow" style="width: 600px;">
-                                                    <div class="card-body text-center">
-                                                        <div class="card-title py-3 bg-white border-0">
-                                                            <h4>
-                                                                The Cart is Empty...
-                                                            </h4>
-                                                        </div>
-                                                        <div class="card-text py-3">
-                                                        <!-- <h5 class="card-title">404 payment fail occured</h5><br> -->
-                                                        
-                                                        <a href="{% url 'home' %}"class="card-link text-decoration-none ayurrich-bold-text" ><i class="bi bi-house me-1"></i>Go to Home </a>
-                                                        <div class="vr mx-2 ayurrich-bold-text"></div>
-                                                        <a href="{% url 'shop' %}" class="card-link text-decoration-none ayurrich-bold-text"><i class="bi bi-shop me-1"></i>Go to Shop</a>
-                                                        </div>
-                                                     
-                                                    </div>
-                                                  </div>
-                                            </div>
-                                           
-                        
                                         </div>
                                     </div>
                                 </div>
-                                {% endif %}
-                      </div>
-                </div>
-            </div>
-    </div>
-    </div>
-    <!-- //// cart body end  -->
-
-    <!-- //// subtotal  -->
-
-    <div class="container-fluid py-4">
-            <div class="row">
-                <div class="col-2 col-md-6 px-md-5">
-                    
-                </div>
-                {% if cart_products %}
-                <div class="col-10 col-md-6 d-flex justify-content-end">
-                    <div class="card me-5 border-0 shadow-lg" style="width: 25rem;">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">Subtotal: <strong class="float-end">{{subtotal}} &#x20B9</strong></li>
-                          <li class="list-group-item">Sales Tax: <strong class="float-end">00.00 &#x20B9</strong></li>
-                          {% if subtotal > 500 %}
-                          <li class="list-group-item">Delivery Charge: <strong class="float-end">00.00 &#x20B9</strong></li>
-                          <li class="list-group-item">Grand Total: <strong class="float-end">{{subtotal}} &#x20B9</strong></li>
-
-                          {% else %}
-                          <li class="list-group-item">Delivery Charge: <strong class="float-end">40.00 &#x20B9</strong></li>
-                          <li class="list-group-item">Grand Total: <strong class="float-end">{{subtotal_delivery}} &#x20B9</strong></li>
-
-                          {% endif %}
-                          
-                        </ul>
-                        <div class="card-footer">
-                            <a href="{% url 'billing' %}" class="text-decoration-none">
-
-                                <button class="btn btn-primary btn-primary-color rounded-pill  float-end border-0"  >Proceed to Billing</button>
-                            </a>
-                        </div>
-                      </div>
-                </div>
+                            </td>
+                            <td>
+                                <div class="price mt-3">
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                        <p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>{{ product.discount_price }}&#x20B9</strong></p>
+                                    </h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="quantity mt-3">
+                                    <input class="form-control form-control-sm quantity-input" type="number"
+                                        value="{% for key, value in quantities.items %}{% if key == product.id|slugify %}{{ value }}{% endif %}{% endfor %}"
+                                        min="1" max="20" data-product-id="{{ product.id }}"
+                                        data-index="{{ loop.index }}">
+                                    <button type="button"
+                                        class="btn btn-sm btn-secondary rounded-pill mt-2 text-wrap update-qty"
+                                        data-index="{{ loop.index }}" data-product-id="{{ product.id }}">Update
+                                        Qty</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="total-price mt-3">
+                                    <p class="h5 fs-6">
+                                        {% for key, value in product_totals.items %}
+                                        {% if key == product.id|stringformat:"s" %}
+                                        {{ value }} &#x20B9
+                                        {% endif %}
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
                 {% else %}
-                <br><br><br><br><br>
-                <br><br><br><br><br>
-                <br><br><br><br><br>
-               
-                
+                <div class="conatiner-fluid py-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-12 d-flex justify-content-center align-items-center">
+                                <div class="card shadow" style="width: 600px;">
+                                    <div class="card-body text-center">
+                                        <div class="card-title py-3 bg-white border-0">
+                                            <h4>
+                                                The Cart is Empty...
+                                            </h4>
+                                        </div>
+                                        <div class="card-text py-3">
+                                            <!-- <h5 class="card-title">404 payment fail occured</h5><br> -->
+                                            <a href="{% url 'home' %}"
+                                                class="card-link text-decoration-none ayurrich-bold-text"><i
+                                                    class="bi bi-house me-1"></i>Go to Home </a>
+                                            <div class="vr mx-2 ayurrich-bold-text"></div>
+                                            <a href="{% url 'shop' %}"
+                                                class="card-link text-decoration-none ayurrich-bold-text"><i
+                                                    class="bi bi-shop me-1"></i>Go to Shop</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
             </div>
+        </div>
     </div>
+</div>
+</div>
+<!-- //// cart body end  -->
 
-    <!-- //// subtotal end  -->
-
-
-    <script>
-        $(document).on('click', '.update-qty', function(e) {
-            e.preventDefault();
-        
-            // Get the product ID and the new quantity from the data attributes and input field
-            let product_id = $(this).data('product-id');
-            let new_qty = $(this).closest('tr').find('.quantity-input').val();
-            
-            // Ensure the quantity is within limits (1 to 20)
-            new_qty = Math.min(20, Math.max(1, parseInt(new_qty)));
-        
-            $.ajax({
-                type: 'POST',
-                url: '{% url "update_cart_qty" %}',  // Replace with your Django view URL for updating quantity
-                data: {
-                    product_id: product_id,
-                    product_qty: new_qty,
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    action: 'update'
-                },
-        
-                success: function(json) {
-                    // Update the cart total quantity (use the response from the server)
-                    document.getElementById('cart_quantity').textContent = json.qty;
-        
-                    // Show the success message inside the toast
-                    let successMessage = json.message;
-
-                    // Set the message text inside the toast body
-                    $('#success-toast .toast-body').text(successMessage);
-
-                    // Show the toast
-                    var toastElement = new bootstrap.Toast($('#success-toast')[0]);
-                    toastElement.show();
-
-                    // Reload the page after successful update
-                    location.reload();  // This reloads the page to reflect the changes
-                                    
-                },
-        
-                error: function(xhr, errmsg, err) {
-                    console.error('Error updating quantity:', errmsg);
-                }
-            });
-        });
-        $(document).on('click', '.remove-cart-item', function(e) {
+<!-- //// subtotal  -->
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-2 col-md-6 px-md-5">
+        </div>
+        {% if cart_products %}
+        <div class="col-10 col-md-6 d-flex justify-content-end">
+            <div class="card me-5 border-0 shadow-lg" style="width: 25rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Subtotal: <strong class="float-end">{{subtotal}} &#x20B9</strong></li>
+                    <li class="list-group-item">Sales Tax: <strong class="float-end">00.00 &#x20B9</strong></li>
+                    {% if subtotal > 500 %}
+                    <li class="list-group-item">Delivery Charge: <strong class="float-end">00.00 &#x20B9</strong></li>
+                    <li class="list-group-item">Grand Total: <strong class="float-end">{{subtotal}} &#x20B9</strong>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item">Delivery Charge: <strong class="float-end">40.00 &#x20B9</strong></li>
+                    <li class="list-group-item">Grand Total: <strong class="float-end">{{subtotal_delivery}}
+                            &#x20B9</strong></li>
+                    {% endif %}
+                </ul>
+                <div class="card-footer">
+                    <a href="{% url 'billing' %}" class="text-decoration-none">
+                        <button class="btn btn-primary btn-primary-color rounded-pill  float-end border-0">Proceed to
+                            Billing</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        {% endif %}
+    </div>
+</div>
+<!-- //// subtotal end  -->
+<script>
+    $(document).on('click', '.update-qty', function (e) {
         e.preventDefault();
-
+        // Get the product ID and the new quantity from the data attributes and input field
+        let product_id = $(this).data('product-id');
+        let new_qty = $(this).closest('tr').find('.quantity-input').val();
+        // Ensure the quantity is within limits (1 to 20)
+        new_qty = Math.min(20, Math.max(1, parseInt(new_qty)));
+        $.ajax({
+            type: 'POST',
+            url: '{% url "update_cart_qty" %}',  // Replace with your Django view URL for updating quantity
+            data: {
+                product_id: product_id,
+                product_qty: new_qty,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'update'
+            },
+            success: function (json) {
+                // Update the cart total quantity (use the response from the server)
+                document.getElementById('cart_quantity').textContent = json.qty;
+                // Show the success message inside the toast
+                let successMessage = json.message;
+                // Set the message text inside the toast body
+                $('#success-toast .toast-body').text(successMessage);
+                // Show the toast
+                var toastElement = new bootstrap.Toast($('#success-toast')[0]);
+                toastElement.show();                    // Reload the page after successful update
+                location.reload();  // This reloads the page to reflect the changes              
+            },
+            error: function (xhr, errmsg, err) {
+                console.error('Error updating quantity:', errmsg);
+            }
+        });
+    });
+    $(document).on('click', '.remove-cart-item', function (e) {
+        e.preventDefault();
         var product_id = $(this).data('product-id');
-
         $.ajax({
             type: 'POST',
             url: '{% url "remove_cart_item" %}',
@@ -251,23 +229,18 @@
                 product_id: product_id,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
-                     // Optionally, display a success message
+                    // Optionally, display a success message
                     alert(response.message);
-
                     // Optionally, update the cart display or reload the page
                     location.reload();  // Reloads the page to reflect the changes
                 }
             },
-            error: function(xhr, errmsg, err) {
+            error: function (xhr, errmsg, err) {
                 console.log('Error:', errmsg);
             }
         });
-        });
-        </script>
-
-
-
-
-    {% endblock %}
+    });
+</script>
+{% endblock %}

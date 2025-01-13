@@ -15,9 +15,6 @@ from django.http import Http404
 from django.core.paginator import Paginator
 from ar_store.models import Contact
 
-
-
-
 def admin_home(request):
     if request.user.is_authenticated:
         count = ProductRegistration.objects.count()
@@ -28,9 +25,6 @@ def admin_home(request):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
-
-
 def all_products(request):
     if request.user.is_authenticated:
         # Get the total count of products
@@ -60,7 +54,7 @@ def all_products(request):
 
         # Get all categories for the dropdown or filter options
         categorys = Category.objects.all()
-        
+    
         # Pagination: Show 12 items per page on large screens and 8 items per page on small screens
         items_per_page = 12  # Default for large screens
 
@@ -85,9 +79,6 @@ def all_products(request):
     else:
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
-
-
-
 
 def add_product(request):
     if request.user.is_authenticated:
@@ -119,7 +110,6 @@ def delete_product(request, pk):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
 def all_orders(request):
     if request.user.is_authenticated:
         q = request.GET.get('q', '')  # Get the search query
@@ -148,9 +138,6 @@ def all_orders(request):
     else:
         raise Http404("Page not found")
 
-
-    
-
 def order_details(request,pk):
     if request.user.is_authenticated:
         order = get_object_or_404(OrderSummary, order_id=pk)
@@ -159,9 +146,6 @@ def order_details(request,pk):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
-
-
 def details(request,pk):
     if request.user.is_authenticated:
         details = get_object_or_404(ProductRegistration, id=pk)
@@ -180,8 +164,6 @@ def details(request,pk):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
    
-
-
 def product_shipping(request):
     if request.user.is_authenticated:
             # Get the search query from the GET request, default to empty string if not provided
@@ -231,9 +213,6 @@ def product_shipping(request):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
-
-
 def completed_orders(request):
     if request.user.is_authenticated:
             # Get the search query from the GET request, default to empty string if not provided
@@ -275,9 +254,6 @@ def completed_orders(request):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
-
-
 def mark_as_not_shipped(request, order_id):
     if request.user.is_authenticated:
         # Fetch the order by ID
@@ -296,7 +272,6 @@ def mark_as_not_shipped(request, order_id):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
 def mark_as_shipped(request, order_id):
     if request.user.is_authenticated:
         # Fetch the order by ID
@@ -320,9 +295,6 @@ def mark_as_shipped(request, order_id):
         # Raise a 404 error if the user is not authenticated
         raise Http404("Page not found")
     
-
-
-
 def all_contacts(request):
     if request.user.is_authenticated:
         q = request.GET.get('q') if request.GET.get('q') != None else ''   

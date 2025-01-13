@@ -220,8 +220,6 @@ def save_order_summary(request):
 
     return JsonResponse({'success': False}, status=400)
 
-
-
 def payment_success(request):
     order_id = request.GET.get('order_id')
     order_summary = get_object_or_404(OrderSummary, order_id=order_id)  # Fetch the order summary
@@ -237,8 +235,6 @@ def payment_success(request):
 
     return render(request, 'payment_success.html', context)
 
-
-
 def payment_fail(request):
     # Retrieve query parameters from Razorpay redirect
     payment_id = request.GET.get('razorpay_payment_id', None)
@@ -253,4 +249,3 @@ def payment_fail(request):
 
     # Render the payment failure page
     return render(request, "payment_failed.html", context)
-

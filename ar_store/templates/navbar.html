@@ -86,7 +86,7 @@
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Directly Contact Us</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="contactForm" method="POST">
+        <form id="contactForm" method="POST" name="contact" id="contact">
           {% csrf_token %}
           <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <div class="modal-body">

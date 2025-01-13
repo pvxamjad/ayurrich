@@ -5,10 +5,6 @@ from ar_store.models import ProductRegistration
 from django.http import JsonResponse
 from django.contrib import messages
 
-# Create your views here.
-
-
-
 def cart(request):
     # get the cart 
     cart = Cart(request)
@@ -78,8 +74,6 @@ def add_cart(request):
     
     return JsonResponse({'message': 'Error'}, status=400)    
     
-
-
 def update_cart_qty(request):
     if request.POST.get('action') == 'update':
         product_id = int(request.POST.get('product_id'))
@@ -117,6 +111,7 @@ def update_cart_qty(request):
             'message': success_message,
             'qty': cart_quantity,
         })
+    
 def remove_cart_item(request):
     cart = Cart(request)
 

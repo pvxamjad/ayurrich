@@ -1,60 +1,45 @@
-
 {% load static %}
-
-
 <!-- ///// navbar start  -->
 <div class="container-fluid shadow-sm  ">
-    <div class="row ">
-        <nav class="navbar navbar-expand-lg ">
-            <div class="container-fluid">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 ">
-                  <li class="nav-item mx-sm-2">
-                    <a class="nav-link" aria-current="page" href="{% url 'admin_home' %}">Dashboard</a>
-                  </li>
-                  <li class="nav-item mx-sm-2">
-                    <a class="nav-link" href="{% url 'all-orders' %}" >All orders</a>
-                  </li>
-                  <li class="nav-item mx-sm-2">
-                    <a class="nav-link" href="{% url 'product-shipping' %}" >Product Shipping</a>
-                  </li>
-                  <li class="nav-item mx-sm-2">
-                    <a class="nav-link" href="{% url 'all-products' %}" >All Products</a>
-                  </li>
-                  <li class="nav-item mx-sm-2">
-                    <a class="nav-link" href="{% url 'all-contacts' %}" >All Contacts</a>
-                  </li>
-                  
-                </ul>
-               
-              </div>
-            </div>
-          </nav>
+  <div class="row ">
+    <nav class="navbar navbar-expand-lg ">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 ">
+            <li class="nav-item mx-sm-2">
+              <a class="nav-link" aria-current="page" href="{% url 'admin_home' %}">Dashboard</a>
+            </li>
+            <li class="nav-item mx-sm-2">
+              <a class="nav-link" href="{% url 'all-orders' %}">All orders</a>
+            </li>
+            <li class="nav-item mx-sm-2">
+              <a class="nav-link" href="{% url 'product-shipping' %}">Product Shipping</a>
+            </li>
+            <li class="nav-item mx-sm-2">
+              <a class="nav-link" href="{% url 'all-products' %}">All Products</a>
+            </li>
+            <li class="nav-item mx-sm-2">
+              <a class="nav-link" href="{% url 'all-contacts' %}">All Contacts</a>
+            </li>
+          </ul>
         </div>
-    </div>
-
-
-
-
-
-
-      <script>
+      </div>
+    </nav>
+  </div>
+</div>
+<script>
   // Get all nav links
   const navLinks = document.querySelectorAll('.nav-link');
-
   // Get current path
   const currentPath = window.location.pathname;
-
   // Add 'active' class to the matching link
   navLinks.forEach(link => {
     if (link.getAttribute('href') === currentPath) {
       link.classList.add('active');
     }
   });
-
-
-      </script>
-  
+</script>

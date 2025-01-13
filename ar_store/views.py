@@ -36,15 +36,11 @@ def save_contact(request):
 
     return JsonResponse({'message': 'Invalid request method.'}, status=405)
 
-
-
 def home(request):
 
     products = ProductRegistration.objects.all()[:4]
 
     return render(request, "home.html" , {'products':products})
-
-
 
 def product_dtails(request,pk):
 
@@ -98,9 +94,6 @@ def product_dtails(request,pk):
     
         return render(request, "product_detail.html" , {'product':product})
     
-
-
-
 def shop(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''   
     sort_by = request.GET.get('sort_by')  # Get the sorting option from query parameters
@@ -135,8 +128,6 @@ def shop(request):
         'current_sort': sort_by,
     }
     return render(request, "shop.html" , context)
-
-
 
 def submit_review(request):
     if request.method == "POST":

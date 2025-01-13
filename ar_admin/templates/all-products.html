@@ -1,141 +1,127 @@
 {% extends 'admin_base.html' %}
-
-
 {% block content %}
-
 <div class="container-fluid">
-    <div class="container pt-5 ps-sm-1">
-        <div class="row">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item active display-5 ayurrich-bold-text fw-normal" aria-current="page">All Products</li>
-                    </ol>
-                
-                        <form class="d-flex float-end py-4" method="GET" action="{% url 'all-products' %}" role="search">
-                        
-                           <input class="form-control box-shadow-none search  me-2" type="search" placeholder="Search" aria-label="Search" name="q">
-
-                           <button class="btn btn-primary-color rounded-pill" type="submit">Search</button>
-                        
-                     </form>
-                
-                  </nav>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-              {% if query_count %}
-              <p class="float-start text-capitalize fs-4">total {{query_count}} found on your search...</p>
-
-              {% else %}
-              <p class="float-start text-capitalize fs-4">total {{count}} products available</p>
-
-              {% endif %}
-
-                <p class="text-end"><a href="{% url "add-product" %}" class="btn btn-primary btn-primary-color border-0">Add Product</a></p>
-            </div>
-        </div>
-        {% if messages %}
+  <div class="container pt-5 ps-sm-1">
+    <div class="row">
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active display-5 ayurrich-bold-text fw-normal" aria-current="page">All Products
+            </li>
+          </ol>
+          <form class="d-flex float-end py-4" method="GET" action="{% url 'all-products' %}" role="search">
+            <input class="form-control box-shadow-none search  me-2" type="search" placeholder="Search"
+              aria-label="Search" name="q">
+            <button class="btn btn-primary-color rounded-pill" type="submit">Search</button>
+          </form>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        {% if query_count %}
+        <p class="float-start text-capitalize fs-4">total {{query_count}} found on your search...</p>
+        {% else %}
+        <p class="float-start text-capitalize fs-4">total {{count}} products available</p>
+        {% endif %}
+        <p class="text-end"><a href="{% url " add-product" %}" class="btn btn-primary btn-primary-color border-0">Add
+            Product</a></p>
+      </div>
+    </div>
+    {% if messages %}
     <div class="toast-container position-fixed top-0 end-0 p-3">
-        {% for message in messages %}
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">Notification</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    {{ message }}
-                </div>
-            </div>
-        {% endfor %}
+      {% for message in messages %}
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Notification</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{ message }}
+        </div>
+      </div>
+      {% endfor %}
     </div>
-{% endif %}
-        <div class="row px-md-5">
-            {% if products %}
-              {% for product in products %}
-              <div class="col-6 col-lg-3 col-md-4 col-sm-6 py-2 ">
-                  <div class="card shadow-sm">
-                    <a
-                    href="" class="ayurrich-bold-text">
-                    <img src="{{ product.image.url }}" class="card-img-top object-fit-cover " alt="...">
-                  </a>                      
-                  <div class="card-body">
-                        <p class=" my-1 d-none d-sm-block"><small>{{ product.category }}</small></p>
-                      <h5 class="card-title text-capitalize">{{ product.name }}</h5>
-                      <p class="card-text my-0 mb-2 text-truncate" >{{ product.description }}</p>
-                      <!-- <p class="card-text my-0"><small>Bottle of 30 tablets</small></p> -->
-                       <h6 class="card-subtitle mb-2 text-body-secondary"><p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>{{ product.discount_price }}&#x20B9</strong></p>
-                        </h6>
-                      <a href="{% url 'all-products/product-details' product.id %}" class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill">Update</a>
-                      <button class="btn btn-danger my-2 rounded-pill" onclick="confirmDelete({{ product.id }})">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-              
-              {% endif %}
-              
-             
+    {% endif %}
+    <div class="row px-md-5">
+      {% if products %}
+      {% for product in products %}
+      <div class="col-6 col-lg-3 col-md-4 col-sm-6 py-2 ">
+        <div class="card shadow-sm">
+          <a href="" class="ayurrich-bold-text">
+            <img src="{{ product.image.url }}" class="card-img-top object-fit-cover " alt="...">
+          </a>
+          <div class="card-body">
+            <p class=" my-1 d-none d-sm-block"><small>{{ product.category }}</small></p>
+            <h5 class="card-title text-capitalize">{{ product.name }}</h5>
+            <p class="card-text my-0 mb-2 text-truncate">{{ product.description }}</p>
+            <!-- <p class="card-text my-0"><small>Bottle of 30 tablets</small></p> -->
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              <p><del class="opacity-50">{{ product.price }}&#x20b9 </del>&nbsp;<strong>{{ product.discount_price
+                  }}&#x20B9</strong></p>
+            </h6>
+            <a href="{% url 'all-products/product-details' product.id %}"
+              class="btn btn-primary btn-primary-color border-0 my-2 rounded-pill">Update</a>
+            <button class="btn btn-danger my-2 rounded-pill" onclick="confirmDelete({{ product.id }})">Delete</button>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end me-md-4 my-5">
-                  {% if products.has_previous %}
-                    <li class="page-item">
-                      <a class="page-link ayurrich-bold-text border-0" href="?page={{ products.previous_page_number }}">Previous</a>
-                    </li>
-                  {% else %}
-                    <li class="page-item ">
-                      <span class="page-link ayurrich-bold-text border-0">Previous</span>
-                    </li>
-                  {% endif %}
-          
-                  {% for num in products.paginator.page_range %}
-                    {% if products.number == num %}
-                      <li class="page-item active">
-                        <span class="page-link ayurrich-text border-0">{{ num }}</span>
-                      </li>
-                    {% else %}
-                      <li class="page-item">
-                        <a class="page-link ayurrich-text border-0" href="?page={{ num }}">{{ num }}</a>
-                      </li>
-                    {% endif %}
-                  {% endfor %}
-          
-                  {% if products.has_next %}
-                    <li class="page-item">
-                      <a class="page-link ayurrich-bold-text border-0" href="?page={{ products.next_page_number }}">Next</a>
-                    </li>
-                  {% else %}
-                    <li class="page-item">
-                      <span class="page-link ayurrich-bold-text border-0">Next</span>
-                    </li>
-                  {% endif %}
-                </ul>
-              </nav>
-            </div>
-          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
     </div>
-    
+    <div class="row">
+      <div class="col-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end me-md-4 my-5">
+            {% if products.has_previous %}
+            <li class="page-item">
+              <a class="page-link ayurrich-bold-text border-0"
+                href="?page={{ products.previous_page_number }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item ">
+              <span class="page-link ayurrich-bold-text border-0">Previous</span>
+            </li>
+            {% endif %}
+            {% for num in products.paginator.page_range %}
+            {% if products.number == num %}
+            <li class="page-item active">
+              <span class="page-link ayurrich-text border-0">{{ num }}</span>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link ayurrich-text border-0" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if products.has_next %}
+            <li class="page-item">
+              <a class="page-link ayurrich-bold-text border-0" href="?page={{ products.next_page_number }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <span class="page-link ayurrich-bold-text border-0">Next</span>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
 </div>
-
 <script>
   function confirmDelete(productId) {
-      if (confirm('Are you sure you want to delete this product?')) {
-          // Redirect to the delete URL
-          window.location.href = "{% url 'delete-product' 0 %}".replace('0', productId);
-      }
+    if (confirm('Are you sure you want to delete this product?')) {
+      // Redirect to the delete URL
+      window.location.href = "{% url 'delete-product' 0 %}".replace('0', productId);
+    }
   }
   document.addEventListener('DOMContentLoaded', function () {
-        var toastElements = document.querySelectorAll('.toast');
-        var toastList = [...toastElements].map(function (toastEl) {
-            return new bootstrap.Toast(toastEl);
-        });
-        toastList.forEach(toast => toast.show());
+    var toastElements = document.querySelectorAll('.toast');
+    var toastList = [...toastElements].map(function (toastEl) {
+      return new bootstrap.Toast(toastEl);
     });
+    toastList.forEach(toast => toast.show());
+  });
 </script>
-
-
 {% endblock %}

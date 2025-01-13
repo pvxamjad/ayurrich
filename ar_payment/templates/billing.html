@@ -1,370 +1,262 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<!-- //// search navbar -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 py-4 px-md-5">
+            <div class="position-relative m-4">
+                <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0"
+                    aria-valuemax="100" style="height: 1px;">
+                    <div class="progress-bar btn-primary-color" style="width: 50%"></div>
+                </div>
+                <button
+                    class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary btn-primary-color border-0 rounded-pill">Cart</button>
+                <button
+                    class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary btn-primary-color border-0 rounded-pill">Billing</button>
+                <button
+                    class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill">Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //// search navbar end -->
 
+<!-- /// Billing information  -->
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12 col-md-6 my-4 ps-md-5">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="card-title py-3 bg-white border-0">
+                        <h4>
+                            Shipping & Billing Info
+                        </h4>
+                    </div>
+                    <div class="card-text">
+                        {% if is_address_saved_in_db %}
+                        <h4>Current Shipping Address</h4>
+                        <ul>
+                            <li><strong>Full Name:</strong> {{ form.instance.full_name }}</li>
+                            <li><strong>Email:</strong> {{ form.instance.email }}</li>
+                            <li><strong>Address:</strong> {{ form.instance.address }}</li>
+                            <li><strong>City:</strong> {{ form.instance.city }}</li>
+                            <li><strong>State:</strong> {{ form.instance.state }}</li>
+                            <li><strong>Pincode:</strong> {{ form.instance.pincode }}</li>
+                            <li><strong>Country:</strong> {{ form.instance.country }}</li>
+                        </ul>
 
-    <!-- //// search navbar -->
-
-        <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 py-4 px-md-5">
-                        <div class="position-relative m-4">
-                            <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-                                <div class="progress-bar btn-primary-color" style="width: 50%"></div>
-                            </div>
-                            <button
-                                class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary btn-primary-color border-0 rounded-pill">Cart</button>
-                            <button
-                                class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary btn-primary-color border-0 rounded-pill">Billing</button>
-                            <button
-                                class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill">Payment</button>
-                        </div>
+                        <hr>
+                        <h4>Update Your Shipping Address</h4>
+                        {% endif %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit"
+                                class="btn btn-primary border-0 btn-primary-color rounded-pill">Update</button>
+                        </form>
                     </div>
                 </div>
+            </div>
         </div>
-
-    <!-- //// search navbar end -->
-
-    <!-- /// Billing information  -->
-
-        <div class="container-fluid py-4">
-                <div class="row">
-                    <div class="col-12 col-md-6 my-4 ps-md-5">
-                        <div class="card shadow-lg">
-                            <div class="card-body">
-                                <div class="card-title py-3 bg-white border-0">
-                                    <h4>
-                                        Shipping & Billing Info
-                                    </h4>
-                                </div>
-                                <div class="card-text">
-                                    {% if is_address_saved_in_db %}
-                                        <h4>Current Shipping Address</h4>
-                                        <ul>
-                                            <li><strong>Full Name:</strong> {{ form.instance.full_name }}</li>
-                                            <li><strong>Email:</strong> {{ form.instance.email }}</li>
-                                            <li><strong>Address:</strong> {{ form.instance.address }}</li>
-                                            <li><strong>City:</strong> {{ form.instance.city }}</li>
-                                            <li><strong>State:</strong> {{ form.instance.state }}</li>
-                                            <li><strong>Pincode:</strong> {{ form.instance.pincode }}</li>
-                                            <li><strong>Country:</strong> {{ form.instance.country }}</li>
-                                        </ul>
-
-                                        <hr>
-                                        <h4>Update Your Shipping Address</h4>
-                                    {% endif %}
-
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        {{ form.as_p }}
-                                        <button type="submit" class="btn btn-primary border-0 btn-primary-color rounded-pill">Update</button>
-                                    </form>
-
-                               
-                                </div>
-                             
-                            </div>
-                          </div>
+        <div class="col-12 col-md-6 my-4 pe-md-5">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="card-title py-3 bg-white border-0">
+                        <h4>
+                            Order Details
+                        </h4>
                     </div>
-                    <div class="col-12 col-md-6 my-4 pe-md-5">
-                        <div class="card shadow-lg">
-                            <div class="card-body">
-                                <div class="card-title py-3 bg-white border-0">
-                                    <h4>
-                                        Order Details
-                                    </h4>
-                                </div>
-                                <div class="card-text">
-                                    <form action="" id="order-form">
-                                    <div class="col-10 mb-1">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Order Info</label>
-                                        <textarea class="form-control" id="order-info" rows="10" readonly placeholder="">
+                    <div class="card-text">
+                        <form action="" id="order-form">
+                            <div class="col-10 mb-1">
+                                <label for="exampleFormControlTextarea1" class="form-label">Order Info</label>
+                                <textarea class="form-control" id="order-info" rows="10" readonly placeholder="">
 {% for order in order_products %}
 Product: {{ order.product.name }} 
 Quantity: {{ order.quantity }} 
 Price: {{ order.price }} &#x20B9;
 Total Price: {{ order.total_price }} &#x20B9;
 {% endfor %}
-
                                         </textarea>
-                                      </div>
-                                    
-                                      <div class="col-10 mb-4">
-                                        <h6>Delivery Charge: {{ delivery_charge }} ₹</h6> 
-                                        
-                                        <label for="totalAmount" class="form-label">Total Amount</label>
-                                        <input type="text" class="form-control" id="totalAmount" readonly value="{{ total }} ₹">
-                                    </div>
-
-                                    <div class="col-12">
-                                        <a href="{% url 'cart' %}" class="text-decoration-none">
-
-                                            <button type="button" class="btn btn-secondary rounded-pill border-0">Go back to Cart</button>&nbsp;&nbsp;
-                                        </a>
-                                        {% if is_address_saved_in_db %}
-                                        <!-- <button type="button" class="btn btn-primary btn-primary-color rounded-pill border-0" id="pay-now-button">Pay Now</button> -->
-                                        <button type="button" class="btn btn-primary btn-primary-color rounded-pill border-0" id="razorpay-button">Pay Now</button>
-                                        <button id="razorpay-button" style="display:none;">Pay Now</button>
-                                        {% else %}
-                                        <button type="button" class="btn btn-secondary rounded-pill border-0" disabled>Complete Billing Info</button>
-                                    {% endif %}
-                                    </div>
-                                </form>
-                                      
-                                </div>
-                             
                             </div>
-                          </div>
+                            <div class="col-10 mb-4">
+                                <h6>Delivery Charge: {{ delivery_charge }} ₹</h6>
+                                <label for="totalAmount" class="form-label">Total Amount</label>
+                                <input type="text" class="form-control" id="totalAmount" readonly value="{{ total }} ₹">
+                            </div>
+                            <div class="col-12">
+                                <a href="{% url 'cart' %}" class="text-decoration-none">
+                                    <button type="button" class="btn btn-secondary rounded-pill border-0">Go back to
+                                        Cart</button>&nbsp;&nbsp;
+                                </a>
+                                {% if is_address_saved_in_db %}
+                                <!-- <button type="button" class="btn btn-primary btn-primary-color rounded-pill border-0" id="pay-now-button">Pay Now</button> -->
+                                <button type="button" class="btn btn-primary btn-primary-color rounded-pill border-0"
+                                    id="razorpay-button">Pay Now</button>
+                                <button id="razorpay-button" style="display:none;">Pay Now</button>
+                                {% else %}
+                                <button type="button" class="btn btn-secondary rounded-pill border-0" disabled>Complete
+                                    Billing Info</button>
+                                {% endif %}
+                            </div>
+                        </form>
                     </div>
-
                 </div>
+            </div>
         </div>
 
-   
-      
-    <!-- /// Billing information end  -->
+    </div>
+</div>
+<!-- /// Billing information end  -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.getElementById("razorpay-button").onclick = function () {
+        const spinnerElement = document.querySelector('.spinner');
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        // Show the spinner
+        spinnerElement.style.display = 'flex';
+        spinnerElement.style.opacity = '1';
+        spinnerElement.style.visibility = 'visible';
 
-    <script>
-document.getElementById("razorpay-button").onclick = function () {
-    var orderProducts = [];
-    var orderInfo = document.getElementById('order-info').value.trim().split("\n\n");
+        var orderProducts = [];
+        var orderInfo = document.getElementById('order-info').value.trim().split("\n\n");
 
-    orderInfo.forEach(orderText => {
-        var productDetails = {};
-        var lines = orderText.split("\n");
+        orderInfo.forEach(orderText => {
+            var productDetails = {};
+            var lines = orderText.split("\n");
 
-        lines.forEach(line => {
-            var [key, value] = line.split(":").map(item => item.trim());
-            if (key && value) {
-                key = key.toLowerCase().replace(" ", "_");
+            lines.forEach(line => {
+                var [key, value] = line.split(":").map(item => item.trim());
+                if (key && value) {
+                    key = key.toLowerCase().replace(" ", "_");
 
-                if (key === "quantity" || key === "price" || key === "total_price") {
-                    value = parseFloat(value.replace("₹", "").trim());
+                    if (key === "quantity" || key === "price" || key === "total_price") {
+                        value = parseFloat(value.replace("₹", "").trim());
+                    }
+
+                    productDetails[key] = value;
                 }
+            });
 
-                productDetails[key] = value;
+            if (Object.keys(productDetails).length > 0) {
+                orderProducts.push(productDetails);
             }
         });
 
-        if (Object.keys(productDetails).length > 0) {
-            orderProducts.push(productDetails);
-        }
-    });
+        var order_summary = {
+            shipping_info: {
+                full_name: "{{ form.instance.full_name }}",
+                email: "{{ form.instance.email }}",
+                address: "{{ form.instance.address }}",
+                city: "{{ form.instance.city }}",
+                state: "{{ form.instance.state }}",
+                pincode: "{{ form.instance.pincode }}",
+                country: "{{ form.instance.country }}"
+            },
+            order_products: orderProducts,
+            total_amount: "{{ total|floatformat:2 }}"
+        };
 
-    var order_summary = {
-        shipping_info: {
-            full_name: "{{ form.instance.full_name }}",
-            email: "{{ form.instance.email }}",
-            address: "{{ form.instance.address }}",
-            city: "{{ form.instance.city }}",
-            state: "{{ form.instance.state }}",
-            pincode: "{{ form.instance.pincode }}",
-            country: "{{ form.instance.country }}"
-        },
-        order_products: orderProducts,
-        total_amount: "{{ total|floatformat:2 }}"
-    };
-
-    const spinnerElement = document.querySelector('.spinner');
-    spinnerElement.style.display = 'flex';
-    spinnerElement.style.opacity = '1';
-
-    fetch("/billing/create-razorpay-order/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}"
-        },
-        body: JSON.stringify({
-            amount: parseFloat(order_summary.total_amount) * 100,
-            currency: "INR",
-            receipt: "order_rcptid_11", 
-        }),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.success) {
-            var options = {
-                key: "{{ RAZORPAY_KEY_ID }}",
-                amount: data.amount,
-                currency: data.currency,
-                name: "Ayur Rich Ingredients",
-                description: `Order Payment of ₹{{ total }}`,
-                order_id: data.id,
-                handler: function (response) {
-                    fetch("/billing/verify-razorpay-payment/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": "{{ csrf_token }}"
-                        },
-                        body: JSON.stringify({
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_signature: response.razorpay_signature,
-                        }),
-                    })
-                    .then((verifyResponse) => verifyResponse.json())
-                    .then((verifyData) => {
-                        if (verifyData.success) {
-                            fetch("/billing/save-order-summary/", {
+        fetch("/billing/create-razorpay-order/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({
+                amount: parseFloat(order_summary.total_amount) * 100,
+                currency: "INR",
+                receipt: "order_rcptid_11",
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    var options = {
+                        key: "{{ RAZORPAY_KEY_ID }}",
+                        amount: data.amount,
+                        currency: data.currency,
+                        name: "Ayur Rich Ingredients",
+                        description: `Order Payment of ₹{{ total }}`,
+                        order_id: data.id,
+                        handler: function (response) {
+                            fetch("/billing/verify-razorpay-payment/", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                     "X-CSRFToken": "{{ csrf_token }}"
                                 },
                                 body: JSON.stringify({
-                                    order_id: response.razorpay_order_id,
-                                    shipping_info: order_summary.shipping_info,
-                                    order_products: order_summary.order_products,
-                                    total_amount: order_summary.total_amount,
                                     razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_signature: response.razorpay_signature,
                                 }),
                             })
-                            .then((saveResponse) => saveResponse.json())
-                            .then((saveData) => {
-                                setTimeout(() => {
-                                    spinnerElement.style.opacity = '0';
-                                    setTimeout(() => {
-                                        spinnerElement.style.display = 'none';
-                                        window.location.href = "/billing/payment-success/?order_id=" + saveData.order_id;
-                                    }, 1000);
-                                }, 0);
-                            });
-                        } else {
-                            alert("Payment verification failed!");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                        alert("An error occurred while verifying the payment.");
-                    });
-                },
-                prefill: {
-                    name: "{{ form.instance.full_name }}",
-                    email: "{{ form.instance.email }}",
-                    contact: "{{ form.instance.phone }}",
-                },
-                theme: {
-                    color: "#B57EDC",
-                },
-                modal: {
-                    ondismiss: function () {
-                        console.log("Payment canceled by user.");
-                        window.location.href = "/billing/payment_fail/"; // Redirect if payment is canceled
-                    },
-                },
-            };
+                                .then(verifyResponse => verifyResponse.json())
+                                .then(verifyData => {
+                                    if (verifyData.success) {
+                                        fetch("/billing/save-order-summary/", {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                "X-CSRFToken": "{{ csrf_token }}"
+                                            },
+                                            body: JSON.stringify({
+                                                order_id: response.razorpay_order_id,
+                                                shipping_info: order_summary.shipping_info,
+                                                order_products: order_summary.order_products,
+                                                total_amount: order_summary.total_amount,
+                                                razorpay_payment_id: response.razorpay_payment_id,
+                                            }),
+                                        })
+                                            .then(saveResponse => saveResponse.json())
+                                            .then(saveData => {
+                                                // Redirect to success page
+                                                window.location.href = "/billing/payment-success/?order_id=" + saveData.order_id;
+                                            });
+                                    } else {
+                                        alert("Payment verification failed!");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Verification error:", error);
+                                    alert("Error verifying payment.");
+                                });
+                        },
+                        prefill: {
+                            name: "{{ form.instance.full_name }}",
+                            email: "{{ form.instance.email }}",
+                            contact: "{{ form.instance.phone }}",
+                        },
+                        theme: {
+                            color: "#B57EDC",
+                        },
+                        modal: {
+                            ondismiss: function () {
+                                // console.log("Payment canceled by user.");
+                                window.location.href = "/billing/payment_fail/";
+                            },
+                        },
+                    };
 
-            var rzp = new Razorpay(options);
-            rzp.open();
-        } else {
-            spinnerElement.style.opacity = '0';
-            setTimeout(() => {
-                spinnerElement.style.display = 'none';
-            }, 1000);
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                } else {
+                    alert("Failed to create Razorpay order: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error("Error creating Razorpay order:", error);
+                alert("Error creating order.");
+            });
 
-            alert("Failed to create Razorpay order: " + data.error);
-        }
-    })
-    .catch((error) => {
-        spinnerElement.style.opacity = '0';
-        setTimeout(() => {
-            spinnerElement.style.display = 'none';
-        }, 1000);
-
-        console.error("Error:", error);
-        alert("An error occurred while creating the Razorpay order.");
-    });
-};
-
-
-
-// Trigger Razorpay button automatically if pay_now=true
-const urlParams = new URLSearchParams(window.location.search);
+        // Spinner stays visible
+    };
+    // Trigger Razorpay button automatically if pay_now=true
+    const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('pay_now') === 'true') {
         document.getElementById("razorpay-button").click();
     }
-
-
-// // Attach the click event to the "Pay Now" button
-// document.getElementById('pay-now-button').onclick = function () {
-//     // Initialize an empty array to store products as dictionaries
-//     var orderProducts = [];
-
-//     // Get the value from the read-only textarea and split by double newlines for each product
-//     var orderInfo = document.getElementById('order-info').value.trim().split("\n\n");
-
-//     // Loop through each product block
-//     orderInfo.forEach(orderText => {
-//         var productDetails = {}; // Initialize an empty dictionary for each product
-//         var lines = orderText.split("\n"); // Split each product block into lines
-
-//         lines.forEach(line => {
-//             var [key, value] = line.split(":").map(item => item.trim()); // Split key-value pairs
-//             if (key && value) {
-//                 // Normalize keys (convert to lowercase and remove spaces)
-//                 key = key.toLowerCase().replace(" ", "_");
-                
-//                 // Parse numeric values (price, quantity, total_price)
-//                 if (key === "quantity" || key === "price" || key === "total_price") {
-//                     value = parseFloat(value.replace("₹", "").trim()); // Remove currency and parse float
-//                 }
-
-//                 // Store the parsed key-value pair in the productDetails object
-//                 productDetails[key] = value;
-//             }
-//         });
-
-//         // If the productDetails object is not empty, add it to the orderProducts array
-//         if (Object.keys(productDetails).length > 0) {
-//             orderProducts.push(productDetails);
-//         }
-//     });
-
-//     // Build the order summary object
-//     var order_summary = {
-//         shipping_info: {
-//             full_name: "{{ form.instance.full_name }}",
-//             email: "{{ form.instance.email }}",
-//             address: "{{ form.instance.address }}",
-//             city: "{{ form.instance.city }}",
-//             state: "{{ form.instance.state }}",
-//             pincode: "{{ form.instance.pincode }}",
-//             country: "{{ form.instance.country }}"
-//         },
-//         order_products: orderProducts,  // Send the parsed orderProducts array
-//         total_amount: "{{ total|floatformat:2 }}"
-//     };
-
-//     // Send the order summary to the backend to save it
-//     fetch("/billing/save-order-summary/", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "X-CSRFToken": "{{ csrf_token }}"
-//         },
-//         body: JSON.stringify(order_summary) // Send structured order summary
-//     }).then(response => {
-//         return response.json(); // Parse the JSON response
-//     }).then(data => {
-//         if (data.success) {
-//             // Clear the cart from session storage
-//             sessionStorage.removeItem('cart'); // Assuming 'cart' is the key used to store cart items
-//             // Redirect to success page with order ID
-//             window.location.href = "/billing/payment-success/?order_id=" + data.order_id;
-//         } else {
-//             // Handle error
-//             alert("Failed to save order summary: " + data.error);
-//         }
-//     }).catch(error => {
-//         console.error('Error:', error);
-//         alert("An error occurred while saving the order summary.");
-//     });
-// };
-
-    </script>
-    {% endblock %}
+</script>
+{% endblock %}
