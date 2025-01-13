@@ -1,3 +1,4 @@
-# start phase 
+[start]
 
-command = "gunicorn ayur_rich.wsgi:application --bind 0.0.0.0:$PORT"
+command = "gunicorn -b 0.0.0.0:$PORT -w 4 -k uvicorn.workers.UvicornWorker --log-level debug ayur_rich.wsgi:application" 
+
