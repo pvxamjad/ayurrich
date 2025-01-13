@@ -20,11 +20,11 @@ SECRET_KEY = 'django-insecure-eit(d(=%b-b*u$bkii(i_kuv-56lavdq(0$aw_xus6%(z4bnbx
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://ayurrich-production.up.railway.app',
+    'https://ayurrich-production.up.railways.app',
     'http://localhost:8000',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://ayurrich-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://ayurrich-production.up.railways.app']
 
 
 # Application definition
