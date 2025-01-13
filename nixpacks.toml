@@ -9,3 +9,8 @@ commands = [
 ]
 
 [build]
+
+# Optionally, add a build step to collect static files
+commands = [
+  "python manage.py collectstatic --noinput"
+]
