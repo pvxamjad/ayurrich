@@ -1,4 +1,11 @@
 [start]
 
-command = "gunicorn -b 0.0.0.0:$PORT -w 4 -k uvicorn.workers.UvicornWorker --log-level debug ayur_rich.wsgi:application" 
+command = "gunicorn -b 0.0.0.0:$PORT -w 4 -k uvicorn.workers.UvicornWorker --log-level debug your_project_name.wsgi:application" 
 
+[install]
+
+commands = [
+  "pip install -r requirements.txt"
+]
+
+[build]
