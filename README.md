@@ -7,7 +7,7 @@ Its a simple ecommerce project designed and developed by me.Its a work for my co
 
 ## Demo
 
-check out the link https://ayurrich-production.up.railway.app/
+check out the link https://ayurrich.com/
 
 
 
